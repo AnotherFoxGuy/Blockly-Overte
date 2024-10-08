@@ -267,6 +267,6 @@ var toobox_def = {
             "categorystyle": "procedure_category",
             "custom": "PROCEDURE"
         }
-        ,
+        //@DEF@
     ]
 }

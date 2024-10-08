@@ -44,8 +44,10 @@
     <script>
         var blocklyArea = document.getElementById('blocklyArea');
         var blocklyDiv = document.getElementById('blocklyDiv');
+
+        console.log(toobox_def)
         var workspace = Blockly.inject(blocklyDiv, {
-            toolbox: toolbox,
+            toolbox: toobox_def,
         });
         var onresize = function (e) {
             // Compute the absolute coordinates and dimensions of blocklyArea.

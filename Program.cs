@@ -9,60 +9,97 @@ var json = File.ReadAllText("hifiJSDoc.json");
 var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
 
 
-var test = data.Where(d => d.Memberof == "Avatar" || d.Name == "Avatar");
+// var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
 var outp = "";
-var toolbox = "";
 
-foreach (var t in test)
+var toolboxcont = new Dictionary<string, List<string>>();
+
+foreach (var t in data) // .Where(d => d.Name == "Avatar")
 {
-
     switch (t.Kind)
     {
         case Kind.Class:
-            outp += generateClassBlock(t);
+            // outp += generateClassBlock(t);
+            Console.WriteLine($"Class {t.Longname}");
             break;
         case Kind.Function:
             outp += generateFunctionBlock(t);
-            toolbox += $"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}},";
+            var cat = t.Memberof ?? "Global";
+            toolboxcont.TryAdd(cat, []);
+            toolboxcont[cat].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
             break;
         case Kind.Namespace:
+            Console.WriteLine($"Namespace {t.Longname}");
             break;
         case Kind.Package:
+            Console.WriteLine($"Package {t.Longname}");
             break;
         case Kind.Signal:
+            Console.WriteLine($"Signal {t.Longname}");
             break;
         case Kind.Typedef:
+            Console.WriteLine($"Typedef {t.Longname}");
             break;
         default:
             break;
     }
 
-    
-    Console.WriteLine($"Gen {t.Longname}");
+
+    // Console.WriteLine($"Gen {t.Longname}");
 }
 
+var default_toolbox = File.ReadAllText("./default_toolbox.js");
 
-var tooboxdef = $$$"""
- var toolbox = {
-    "kind": "categoryToolbox",
-    "contents": [
-    {
-        "kind": "category",
-        "name": "Avatar",
-        "contents": [
-            {{{toolbox}}}
-        ]
-    }
-    ]
+var toolbox = "";
+foreach (var item in toolboxcont)
+{
+    toolbox += $"{{ \"kind\": \"category\", \"name\": \"{item.Key}\", \"contents\": [{string.Join(",", item.Value)}]}},";
 }
-""";
+
+var tooboxdef = default_toolbox.Replace("//@DEF@", "," + toolbox.TrimEnd(','));//$"var toolbox = [{}]";
 File.WriteAllText("./deploy/overte.js", outp + tooboxdef);
 
 
 string generateClassBlock(HifiJsDoc data)
 {
-    return "TODO";
+    var block_output = "";
+
+    var code_fields = new List<string>();
+    var code_code = "";
+
+    foreach (var prop in data.Properties)
+    {
+        if (prop.Type == null)
+            continue;
+        block_output += $"this.setOutput(true, '{typeToJs(prop.Type)}');";
+    }
+
+    var block_name = getBlockName(data);
+
+    var desc = data.Description?.Replace("'", "\\'") ?? "";
+    desc = Regex.Replace(desc, @"\t|\n|\r", "");
+
+    var returns = $"[`{data.Longname}({string.Join(",", code_fields)})`, javascript.javascriptGenerator.ORDER_NONE]";
+
+    return $$$"""
+    Blockly.Blocks['{{{block_name}}}'] = {
+        init: function() {
+            this.appendDummyInput()
+                .appendField('{{{data.Longname}}}')
+            {{{block_output}}}
+            this.setColour(160);
+            this.setTooltip('{{{desc}}}');
+            this.setHelpUrl('https://apidocs.overte.org/{{{data.Longname.Replace(".", ".html#.")}}}');
+        }
+    };
+    javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
+        {{{code_code}}}
+        
+        return {{{returns}}};
+    };
+    
+    """;
 }
 
 
@@ -71,19 +108,29 @@ string generateFunctionBlock(HifiJsDoc data)
     var block_input = "";
     var block_output = "";
 
-    var code_fields = "";
+    var code_fields = new List<string>();
+    var code_code = "";
 
     if (data.Params != null)
     {
         foreach (var param in data.Params)
         {
-            var type = param.Type.Names.First();
+            if (param.Type == null)
+                continue;
+
+            var parm_name = param.Name ?? "parameter";
+            parm_name = parm_name.Replace("-", "");
             block_input += $$$"""
-            this.appendValueInput('{{{param.Name}}}')
-                .setCheck('{{{type}}}')
-                .appendField('{{{param.Name}}}');
+            this.appendValueInput('{{{parm_name}}}')
+                .setCheck('{{{typeToJs(param.Type)}}}')
+                .appendField('{{{parm_name}}}');
 
             """;
+
+            code_code += $$$"""
+            const _{{{parm_name}}} = generator.valueToCode(block, '{{{parm_name}}}', javascript.javascriptGenerator.ORDER_ATOMIC);            
+            """;
+            code_fields.Add($"${{_{parm_name}}}");
         }
 
     }
@@ -92,15 +139,25 @@ string generateFunctionBlock(HifiJsDoc data)
     {
         foreach (var o in data.Returns)
         {
-            block_output += $"this.setOutput(true, '{o.Type.Names.First()}');";
+            if (o.Type == null)
+                continue;
+            block_output += $"this.setOutput(true, '{typeToJs(o.Type)}');";
         }
-
+    }
+    else
+    {
+        block_output = "this.setNextStatement(true);\nthis.setPreviousStatement(true)";
     }
 
     var block_name = getBlockName(data);
 
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
+
+
+    var returns = data.Returns == null ?
+    $"`{data.Longname}({string.Join(",", code_fields)})`" :
+    $"[`{data.Longname}({string.Join(",", code_fields)})`, javascript.javascriptGenerator.ORDER_NONE]";
 
     return $$$"""
     Blockly.Blocks['{{{block_name}}}'] = {
@@ -115,13 +172,24 @@ string generateFunctionBlock(HifiJsDoc data)
         }
     };
     javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
-        // Return code.
-        return '{{{data.Longname}}}()';
+        {{{code_code}}}
+        
+        return {{{returns}}};
     };
     
 
     """;
 }
 
+string getBlockName(HifiJsDoc data) => data.Longname.Replace('.', '_'); //.ToLower();
 
-string getBlockName(HifiJsDoc data) => data.Longname.ToLower().Replace('.', '_');
+string typeToJs(TypeClass type)
+{
+    return type.Names.First() switch
+    {
+        "number" => "Number",
+        "boolean" => "Boolean",
+        "string" => "String",
+        _ => type.Names.First(),
+    };
+}
