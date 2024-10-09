@@ -59,11 +59,16 @@ foreach (var t in data.Where(d => d.Deprecated == null)) // .Where(d => d.Member
 
 }
 
+toolboxcont = toolboxcont.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
 var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
 File.WriteAllText("./deploy/overte.js", outp + rend);
 
 string generateNamespaceBlock(HifiJsDoc data)
 {
+    if (block_cache.Contains($"{data.Memberof}{data.Name}"))
+        return "";
+    block_cache.Add($"{data.Memberof}{data.Name}");
+
     var i = 0;
     var block_name = getBlockName(data);
     var outp = "";
@@ -99,9 +104,9 @@ string generateNamespaceBlock(HifiJsDoc data)
 
 string generateTypedefBlock(HifiJsDoc data)
 {
-    if (block_cache.Contains(data.Name))
+    if (block_cache.Contains($"{data.Memberof}{data.Name}"))
         return "";
-    block_cache.Add(data.Name);
+    block_cache.Add($"{data.Memberof}{data.Name}");
 
     var i = 0;
     var block_name = getBlockName(data);
@@ -166,6 +171,10 @@ string generateClassBlock(HifiJsDoc data)
 
 string generateSignalBlock(HifiJsDoc data)
 {
+    if (block_cache.Contains($"{data.Memberof}{data.Name}"))
+        return "";
+    block_cache.Add($"{data.Memberof}{data.Name}");
+
     var block_name = getBlockName(data);
     var parameters = new List<object>();
 

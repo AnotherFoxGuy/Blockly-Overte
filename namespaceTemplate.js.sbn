@@ -17,5 +17,5 @@ Blockly.Blocks['{{blockname}}'] = {
     }
 };
 javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
-    return `{{jsfunction}}`;
+    return [`{{jsfunction}}`, javascript.javascriptGenerator.ORDER_NONE];
 };
