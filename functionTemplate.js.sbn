@@ -18,28 +18,53 @@ Blockly.Blocks['{{blockname}}'] = {
 
         // Params data
 {{~ for p in parameters ~}} 
+{{~ if p.type == "function" ~}}
+        this.appendStatementInput('{{p.name}}')
+            .appendField('{{p.name}}');
+{{~ else ~}}
         this.appendValueInput('{{p.name}}')
             .setCheck('{{p.type}}')
             .appendField('{{p.name}}');
+{{~ end ~}}
 {{~ end ~}}
 
 {{~ if returns.size == 0 ~}}
         this.setNextStatement(true);
         this.setPreviousStatement(true);
 {{~ end ~}}
-        this.setColour(160);
+        this.setColour('{{color}}');
         this.setTooltip('{{description}}');
         this.setHelpUrl('{{url}}');
     }
 };
 javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
 {{~ for p in parameters ~}} 
+{{~ if p.type == "function" ~}}
+    const _{{p.name}} = generator.statementToCode(block, '{{p.name}}');
+{{~ else ~}}
     const _{{p.name}} = generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC);
+{{~ end ~}}
 {{~ end ~}}
 
 {{if returns.size == 0}}
-    return `{{jsfunction}}({{~ for p in parameters ~}} ${_{{p.name}}}{{~ com ~}}{{~ end ~}})`;
+    return `{{jsfunction}}(
+{{~ for p in parameters ~}} 
+    {{~ if p.type == "function" ~}}
+        () => { ${_{{p.name}}} }
+    {{~ else ~}}
+        ${_{{p.name}}}
+    {{~ end ~}} {{~ com ~}}
+{{~ end ~}}
+    );`;
 {{else}}
-    return [`{{jsfunction}}({{~ for p in parameters ~}} ${_{{p.name}}}{{~ com ~}}{{~ end ~}})`, javascript.javascriptGenerator.ORDER_NONE];
+    return [`{{jsfunction}}(
+{{~ for p in parameters ~}} 
+    {{~ if p.type == "function" ~}}
+        () => { ${_{{p.name}}} }
+    {{~ else ~}}
+        ${_{{p.name}}}
+    {{~ end ~}}{{~ com ~}}
+{{~ end ~}}
+    );`, javascript.javascriptGenerator.ORDER_NONE];
 {{end}}
 };

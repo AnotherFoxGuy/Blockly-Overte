@@ -483,5 +483,6 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-
+tmp/*
 hifiJSDoc.json
+deploy/overte.js

@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using Overte;
 using Scriban;
+using System.Security.Cryptography;
+using System.Text;
 
 var json = File.ReadAllText("hifiJSDoc.json");
 var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
@@ -11,18 +13,21 @@ var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
 var toolbox_template = Template.Parse(File.ReadAllText("./default_toolbox.js.sbn"), "./default_toolbox.js.sbn");
 var class_template = Template.Parse(File.ReadAllText("./classTemplate.js.sbn"), "./classTemplate.js.sbn");
 var function_template = Template.Parse(File.ReadAllText("./functionTemplate.js.sbn"), "./functionTemplate.js.sbn");
+var signal_template = Template.Parse(File.ReadAllText("./signalTemplate.js.sbn"), "./signalTemplate.js.sbn");
 
 testTemplate(toolbox_template);
 testTemplate(class_template);
 testTemplate(function_template);
+testTemplate(signal_template);
 
 // var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
 var outp = "";
 
 var toolboxcont = new Dictionary<string, List<string>>();
+var color_cache = new Dictionary<string, string>();
 
-foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) // 
+foreach (var t in data) // .Where(d => d.Memberof == "MyAvatar")
 {
     switch (t.Kind)
     {
@@ -44,10 +49,10 @@ foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) //
             break;
         case Kind.Signal:
             Console.WriteLine($"Signal {t.Longname}");
-            // outp += generateSignalBlock(t);
-            // var cat2 = t.Memberof ?? "Global";
-            // toolboxcont.TryAdd(cat2, []);
-            // toolboxcont[cat2].Add(getBlockName(t));
+            outp += generateSignalBlock(t);
+            var cat2 = t.Memberof ?? "Global";
+            toolboxcont.TryAdd(cat2, []);
+            toolboxcont[cat2].Add(getBlockName(t));
             break;
         case Kind.Typedef:
             Console.WriteLine($"Typedef {t.Longname}");
@@ -94,11 +99,7 @@ string generateClassBlock(HifiJsDoc data)
 string generateSignalBlock(HifiJsDoc data)
 {
     var block_name = getBlockName(data);
-
-    var block_input = "";
-
-    var code_fields = new List<string>();
-    var code_code = "";
+    var parameters = new List<object>();
 
     if (data.Params != null)
     {
@@ -109,52 +110,29 @@ string generateSignalBlock(HifiJsDoc data)
 
             var parm_name = param.Name ?? "parameter";
             parm_name = parm_name.Replace("-", "");
-            block_input += $$$"""
-            this.setOutput(true);
-            """;
 
-            code_code += $$$"""
-            const _{{{parm_name}}} = generator.valueToCode(block, '{{{parm_name}}}', javascript.javascriptGenerator.ORDER_ATOMIC);            
-            """;
-            code_fields.Add($"${{_{parm_name}}}");
+            parameters.Add(new
+            {
+                Name = parm_name,
+                Type = typeToJs(param.Type)
+            });
         }
-
     }
 
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
-    var returns = data.Params == null ?
-    $$$"""
-    `{{{data.Longname}}}.connect(() => {
-            ${innerCode}
-    });`
-    """ :
-    $$$"""
-    [`{{{data.Longname}}}.connect(() => {
-            ${innerCode}
-    });`, javascript.javascriptGenerator.ORDER_NONE]
-    """;
-
-    return $$$"""
-    Blockly.Blocks['{{{block_name}}}'] = {
-        init: function() {
-            this.appendStatementInput('VALUE_INPUT')
-                .appendField('{{{data.Longname}}}');
-            {{{block_input}}}
-            this.setColour(160);
-            this.setTooltip('{{{desc}}}');
-            this.setHelpUrl('https://apidocs.overte.org/{{{data.Longname.Replace(".", ".html#.")}}}');
-        }
+    var template_data = new
+    {
+        Jsfunction = data.Longname,
+        Blockname = getBlockName(data),
+        Description = desc,
+        Parameters = parameters,
+        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
+        Color = catColor(data.Memberof)
     };
-    javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
 
-        const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
-        
-        return {{{returns}}};
-    };
-    
-    """;
+    return signal_template.Render(template_data);
 }
 
 
@@ -205,7 +183,8 @@ string generateFunctionBlock(HifiJsDoc data)
         Description = desc,
         Parameters = parameters,
         Returns = returns,
-        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}"
+        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
+        Color = catColor(data.Memberof)
     };
 
     return function_template.Render(template_data);
@@ -237,3 +216,17 @@ void testTemplate(Template t)
 }
 
 string normalizeVarName(string? inp) => inp == null ? "parameter" : inp.Replace("-", "");
+
+string catColor(string? cat)
+{
+    if (cat == null)
+        return "#111111";
+
+    if (color_cache.TryGetValue(cat, out string? value))
+        return value;
+
+    var hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(cat));
+    var color = $"#{string.Join("", BitConverter.ToString(hashBytes).Replace("-", "").Take(6))}";
+    color_cache.Add(cat, color);
+    return color;
+}

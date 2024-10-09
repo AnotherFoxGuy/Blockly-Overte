@@ -10,7 +10,7 @@
 }} 
         this.setOutput(true, '{{typeToJs(prop.Type)}}');
 {{ end }}
-        this.setColour(160);
+        this.setColour('{{color}}');
         this.setTooltip('{{description}}');
         this.setHelpUrl('https://apidocs.overte.org/{{data.Longname.Replace(".", ".html#.")}}');
     }
@@ -18,5 +18,5 @@
 javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
     {{code_code}}
     
-    return [`{{data.Longname}}({{codefields}})`, javascript.javascriptGenerator.ORDER_NONE];
+    return [`{{data.Longname}}({{codefields}});`, javascript.javascriptGenerator.ORDER_NONE];
 };
