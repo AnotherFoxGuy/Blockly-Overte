@@ -1,10 +1,20 @@
 ﻿using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Overte;
+using Scriban;
 
 var json = File.ReadAllText("hifiJSDoc.json");
 var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
 
+
+// Templates
+var toolbox_template = Template.Parse(File.ReadAllText("./default_toolbox.js.sbn"), "./default_toolbox.js.sbn");
+var class_template = Template.Parse(File.ReadAllText("./classTemplate.js.sbn"), "./classTemplate.js.sbn");
+var function_template = Template.Parse(File.ReadAllText("./functionTemplate.js.sbn"), "./functionTemplate.js.sbn");
+
+testTemplate(toolbox_template);
+testTemplate(class_template);
+testTemplate(function_template);
 
 // var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
@@ -21,10 +31,10 @@ foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) //
             Console.WriteLine($"Class {t.Longname}");
             break;
         case Kind.Function:
-            // outp += generateFunctionBlock(t);
-            // var cat = t.Memberof ?? "Global";
-            // toolboxcont.TryAdd(cat, []);
-            // toolboxcont[cat].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
+            outp += generateFunctionBlock(t);
+            var cat = t.Memberof ?? "Global";
+            toolboxcont.TryAdd(cat, []);
+            toolboxcont[cat].Add(getBlockName(t));
             break;
         case Kind.Namespace:
             Console.WriteLine($"Namespace {t.Longname}");
@@ -34,10 +44,10 @@ foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) //
             break;
         case Kind.Signal:
             Console.WriteLine($"Signal {t.Longname}");
-            outp += generateSignalBlock(t);
-            var cat2 = t.Memberof ?? "Global";
-            toolboxcont.TryAdd(cat2, []);
-            toolboxcont[cat2].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
+            // outp += generateSignalBlock(t);
+            // var cat2 = t.Memberof ?? "Global";
+            // toolboxcont.TryAdd(cat2, []);
+            // toolboxcont[cat2].Add(getBlockName(t));
             break;
         case Kind.Typedef:
             Console.WriteLine($"Typedef {t.Longname}");
@@ -50,57 +60,35 @@ foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) //
     // Console.WriteLine($"Gen {t.Longname}");
 }
 
-var default_toolbox = File.ReadAllText("./default_toolbox.js");
 
-var toolbox = "";
-foreach (var item in toolboxcont)
-{
-    toolbox += $"{{ \"kind\": \"category\", \"name\": \"{item.Key}\", \"contents\": [{string.Join(",", item.Value)}]}},";
-}
+// var toolbox = "";
+// foreach (var item in toolboxcont)
+// {
+//     toolbox += $"{{ \"kind\": \"category\", \"name\": \"{item.Key}\", \"contents\": [{string.Join(",", item.Value)}]}},";
+// }
 
-var tooboxdef = default_toolbox.Replace("//@DEF@", "," + toolbox.TrimEnd(','));//$"var toolbox = [{}]";
-File.WriteAllText("./deploy/overte.js", outp + tooboxdef);
+// var tooboxdef = default_toolbox.Replace("//@DEF@", "," + toolbox.TrimEnd(','));//$"var toolbox = [{}]";
+
+
+var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
+File.WriteAllText("./deploy/overte.js", outp + rend);
 
 
 string generateClassBlock(HifiJsDoc data)
 {
-    var block_output = "";
-
-    var code_fields = new List<string>();
-    var code_code = "";
-
-    foreach (var prop in data.Properties)
-    {
-        if (prop.Type == null)
-            continue;
-        block_output += $"this.setOutput(true, '{typeToJs(prop.Type)}');";
-    }
-
-    var block_name = getBlockName(data);
-
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
-    var returns = $"[`{data.Longname}({string.Join(",", code_fields)})`, javascript.javascriptGenerator.ORDER_NONE]";
+    var template_data = new
+    {
+        JsFunction = data.Longname,
+        Blockname = getBlockName(data),
+        Description = desc,
+        // Codefields = string.Join(",", code_fields),
+        Properties = data.Properties
+    };
 
-    return $$$"""
-    Blockly.Blocks['{{{block_name}}}'] = {
-        init: function() {
-            this.appendDummyInput()
-                .appendField('{{{data.Longname}}}')
-            {{{block_output}}}
-            this.setColour(160);
-            this.setTooltip('{{{desc}}}');
-            this.setHelpUrl('https://apidocs.overte.org/{{{data.Longname.Replace(".", ".html#.")}}}');
-        }
-    };
-    javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
-        {{{code_code}}}
-        
-        return {{{returns}}};
-    };
-    
-    """;
+    return class_template.Render(template_data);
 }
 
 string generateSignalBlock(HifiJsDoc data)
@@ -141,7 +129,7 @@ string generateSignalBlock(HifiJsDoc data)
     `{{{data.Longname}}}.connect(() => {
             ${innerCode}
     });`
-    """:
+    """ :
     $$$"""
     [`{{{data.Longname}}}.connect(() => {
             ${innerCode}
@@ -172,11 +160,8 @@ string generateSignalBlock(HifiJsDoc data)
 
 string generateFunctionBlock(HifiJsDoc data)
 {
-    var block_input = "";
-    var block_output = "";
 
-    var code_fields = new List<string>();
-    var code_code = "";
+    var parameters = new List<object>();
 
     if (data.Params != null)
     {
@@ -187,20 +172,16 @@ string generateFunctionBlock(HifiJsDoc data)
 
             var parm_name = param.Name ?? "parameter";
             parm_name = parm_name.Replace("-", "");
-            block_input += $$$"""
-            this.appendValueInput('{{{parm_name}}}')
-                .setCheck('{{{typeToJs(param.Type)}}}')
-                .appendField('{{{parm_name}}}');
 
-            """;
-
-            code_code += $$$"""
-            const _{{{parm_name}}} = generator.valueToCode(block, '{{{parm_name}}}', javascript.javascriptGenerator.ORDER_ATOMIC);            
-            """;
-            code_fields.Add($"${{_{parm_name}}}");
+            parameters.Add(new
+            {
+                Name = parm_name,
+                Type = typeToJs(param.Type)
+            });
         }
-
     }
+
+    var returns = new List<string>();
 
     if (data.Returns != null)
     {
@@ -208,12 +189,8 @@ string generateFunctionBlock(HifiJsDoc data)
         {
             if (o.Type == null)
                 continue;
-            block_output += $"this.setOutput(true, '{typeToJs(o.Type)}');";
+            returns.Add(typeToJs(o.Type));
         }
-    }
-    else
-    {
-        block_output = "this.setNextStatement(true);\nthis.setPreviousStatement(true)";
     }
 
     var block_name = getBlockName(data);
@@ -221,31 +198,17 @@ string generateFunctionBlock(HifiJsDoc data)
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
-
-    var returns = data.Returns == null ?
-    $"`{data.Longname}({string.Join(",", code_fields)})`" :
-    $"[`{data.Longname}({string.Join(",", code_fields)})`, javascript.javascriptGenerator.ORDER_NONE]";
-
-    return $$$"""
-    Blockly.Blocks['{{{block_name}}}'] = {
-        init: function() {
-            this.appendDummyInput()
-                .appendField('{{{data.Longname}}}')
-            {{{block_input}}}
-            {{{block_output}}}
-            this.setColour(160);
-            this.setTooltip('{{{desc}}}');
-            this.setHelpUrl('https://apidocs.overte.org/{{{data.Longname.Replace(".", ".html#.")}}}');
-        }
+    var template_data = new
+    {
+        Jsfunction = data.Longname,
+        Blockname = getBlockName(data),
+        Description = desc,
+        Parameters = parameters,
+        Returns = returns,
+        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}"
     };
-    javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
-        {{{code_code}}}
-        
-        return {{{returns}}};
-    };
-    
 
-    """;
+    return function_template.Render(template_data);
 }
 
 string getBlockName(HifiJsDoc data) => data.Longname.Replace('.', '_'); //.ToLower();
@@ -260,3 +223,17 @@ string typeToJs(TypeClass type)
         _ => type.Names.First(),
     };
 }
+
+
+void testTemplate(Template t)
+{
+    if (t.HasErrors)
+    {
+        foreach (var error in t.Messages)
+            Console.WriteLine(error);
+
+        throw new Exception("Invalid template!");
+    }
+}
+
+string normalizeVarName(string? inp) => inp == null ? "parameter" : inp.Replace("-", "");

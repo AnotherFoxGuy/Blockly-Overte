@@ -1,0 +1,22 @@
+ Blockly.Blocks['{{blockname}}'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField('{{data.Longname}}')
+{{ 
+    for p in properties 
+    if p == null
+        break
+    end
+}} 
+        this.setOutput(true, '{{typeToJs(prop.Type)}}');
+{{ end }}
+        this.setColour(160);
+        this.setTooltip('{{description}}');
+        this.setHelpUrl('https://apidocs.overte.org/{{data.Longname.Replace(".", ".html#.")}}');
+    }
+};
+javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
+    {{code_code}}
+    
+    return [`{{data.Longname}}({{codefields}})`, javascript.javascriptGenerator.ORDER_NONE];
+};

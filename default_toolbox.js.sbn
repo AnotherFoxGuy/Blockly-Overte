@@ -1,3 +1,10 @@
+{{~
+func com
+    if !for.last 
+        ret ','
+    end
+end
+~}}
 var toobox_def = {
     "kind": "categoryToolbox",
     "contents": [
@@ -266,7 +273,20 @@ var toobox_def = {
             "name": "Functions",
             "categorystyle": "procedure_category",
             "custom": "PROCEDURE"
-        }
-        //@DEF@
+        },
+        {{~ for item in toolbox ~}} 
+        { 
+            "kind": "category",
+            "name": "{{item.key}}", 
+            "contents": [
+            {{~ for i in item.value ~}} 
+                {
+                    "kind": "block",
+                    "type": "{{i}}"
+                }{{com}}
+            {{~ end ~}}
+            ]
+        } {{com}}
+        {{~ end ~}}
     ]
 }
