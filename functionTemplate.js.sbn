@@ -22,8 +22,10 @@ Blockly.Blocks['{{blockname}}'] = {
         this.appendStatementInput('{{p.name}}')
             .appendField('{{p.name}}');
 {{~ else ~}}
-        this.appendValueInput('{{p.name}}')
+        this.appendValueInput('{{p.name}}') 
+{{~ if p.type != "Any" ~}}
             .setCheck('{{p.type}}')
+{{~ end ~}}
             .appendField('{{p.name}}');
 {{~ end ~}}
 {{~ end ~}}

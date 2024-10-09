@@ -11,12 +11,6 @@ Blockly.Blocks['{{blockname}}'] = {
     init: function() {
         this.appendStatementInput('VALUE_INPUT')
             .appendField('{{jsfunction}}');
-        // Params data
-{{~ for p in parameters ~}} 
-        this.appendValueInput('{{p.name}}')
-            .setCheck('{{p.type}}')
-            .appendField('{{p.name}}');
-{{~ end ~}}
 
         this.setColour('{{color}}');
         this.setTooltip('{{description}}');
@@ -25,13 +19,7 @@ Blockly.Blocks['{{blockname}}'] = {
 };
 javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
-{{if parameters.size == 0}}
     return `{{jsfunction}}.connect(() => {
         ${innerCode}
     });`;
-{{else}}
-    return [`{{jsfunction}}.connect(() => {
-        ${innerCode}
-    });`, javascript.javascriptGenerator.ORDER_NONE]
-{{end}}
 };

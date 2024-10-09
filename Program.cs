@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 var json = File.ReadAllText("hifiJSDoc.json");
+json = json.Replace("(0)", "");
 var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
 
 
@@ -14,11 +15,13 @@ var toolbox_template = Template.Parse(File.ReadAllText("./default_toolbox.js.sbn
 var class_template = Template.Parse(File.ReadAllText("./classTemplate.js.sbn"), "./classTemplate.js.sbn");
 var function_template = Template.Parse(File.ReadAllText("./functionTemplate.js.sbn"), "./functionTemplate.js.sbn");
 var signal_template = Template.Parse(File.ReadAllText("./signalTemplate.js.sbn"), "./signalTemplate.js.sbn");
+var typedef_template = Template.Parse(File.ReadAllText("./typedefTemplate.js.sbn"), "./typedefTemplate.js.sbn");
 
 testTemplate(toolbox_template);
 testTemplate(class_template);
 testTemplate(function_template);
 testTemplate(signal_template);
+testTemplate(typedef_template);
 
 // var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
@@ -36,10 +39,8 @@ foreach (var t in data) // .Where(d => d.Memberof == "MyAvatar")
             Console.WriteLine($"Class {t.Longname}");
             break;
         case Kind.Function:
-            outp += generateFunctionBlock(t);
-            var cat = t.Memberof ?? "Global";
-            toolboxcont.TryAdd(cat, []);
-            toolboxcont[cat].Add(getBlockName(t));
+            Console.WriteLine($"Function {t.Longname}");
+            // outp += generateFunctionBlock(t);
             break;
         case Kind.Namespace:
             Console.WriteLine($"Namespace {t.Longname}");
@@ -49,34 +50,67 @@ foreach (var t in data) // .Where(d => d.Memberof == "MyAvatar")
             break;
         case Kind.Signal:
             Console.WriteLine($"Signal {t.Longname}");
-            outp += generateSignalBlock(t);
-            var cat2 = t.Memberof ?? "Global";
-            toolboxcont.TryAdd(cat2, []);
-            toolboxcont[cat2].Add(getBlockName(t));
+            // outp += generateSignalBlock(t);
             break;
         case Kind.Typedef:
             Console.WriteLine($"Typedef {t.Longname}");
+            outp += generateTypedefBlock(t);
             break;
         default:
             break;
     }
 
-
-    // Console.WriteLine($"Gen {t.Longname}");
 }
-
-
-// var toolbox = "";
-// foreach (var item in toolboxcont)
-// {
-//     toolbox += $"{{ \"kind\": \"category\", \"name\": \"{item.Key}\", \"contents\": [{string.Join(",", item.Value)}]}},";
-// }
-
-// var tooboxdef = default_toolbox.Replace("//@DEF@", "," + toolbox.TrimEnd(','));//$"var toolbox = [{}]";
 
 
 var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
 File.WriteAllText("./deploy/overte.js", outp + rend);
+
+
+string generateTypedefBlock(HifiJsDoc data)
+{
+    var i = 0;
+    var block_name = getBlockName(data);
+    var properties = new List<object>();
+
+    if (data.Properties == null)
+        return "";
+
+    foreach (var prop in data.Properties)
+    {
+        if (prop.Type == null)
+            continue;
+
+        var parm_name = prop.Name ?? $"prop_{i++}";
+        parm_name = Regex.Replace(parm_name, @"[^a-zA-Z0-9]", "");
+        if (parm_name == "")
+            parm_name = $"prop_{i++}";
+
+        properties.Add(new
+        {
+            Name = parm_name,
+            Description = prop.Description,
+            Type = typeToJs(prop.Type)
+        });
+    }
+
+
+    var desc = data.Description?.Replace("'", "\\'") ?? "";
+    desc = Regex.Replace(desc, @"\t|\n|\r", "");
+
+    var template_data = new
+    {
+        Jsfunction = data.Longname,
+        Blockname = getBlockName(data),
+        Description = desc,
+        Properties = properties,
+        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
+        Color = catColor(data.Memberof)
+    };
+
+    addToToolbox(data);
+    return typedef_template.Render(template_data);
+}
 
 
 string generateClassBlock(HifiJsDoc data)
@@ -132,6 +166,7 @@ string generateSignalBlock(HifiJsDoc data)
         Color = catColor(data.Memberof)
     };
 
+    addToToolbox(data);
     return signal_template.Render(template_data);
 }
 
@@ -187,6 +222,7 @@ string generateFunctionBlock(HifiJsDoc data)
         Color = catColor(data.Memberof)
     };
 
+    addToToolbox(data);
     return function_template.Render(template_data);
 }
 
@@ -199,7 +235,20 @@ string typeToJs(TypeClass type)
         "number" => "Number",
         "boolean" => "Boolean",
         "string" => "String",
+        "*" => "Any",
         _ => type.Names.First(),
+    };
+}
+
+string getBlocklyField(TypeClass type)
+{
+    return type.Names.First() switch
+    {
+        "number" => "Number",
+        "boolean" => "Boolean",
+        "string" => "String",
+        "*" => "Any",
+        _ => "",
     };
 }
 
@@ -229,4 +278,11 @@ string catColor(string? cat)
     var color = $"#{string.Join("", BitConverter.ToString(hashBytes).Replace("-", "").Take(6))}";
     color_cache.Add(cat, color);
     return color;
+}
+
+void addToToolbox(HifiJsDoc a)
+{
+    var cat = a.Memberof ?? "Global";
+    toolboxcont.TryAdd(cat, []);
+    toolboxcont[cat].Add(getBlockName(a));
 }

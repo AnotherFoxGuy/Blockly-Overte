@@ -22,6 +22,19 @@
             background: #fc9;
             text-align: center;
         }
+
+        .float-container {
+            display: flex;
+            height: 100%;
+        }
+
+        .float-child {
+            flex: 1;
+        }
+        textarea{
+            height: 99%;
+            width: 99%;
+        }
     </style>
     <!-- Load Blockly core -->
     <script src="https://cdn.jsdelivr.net/npm/blockly/blockly_compressed.js"></script>
@@ -36,11 +49,15 @@
 </head>
 
 <body>
-    <div id="blocklyArea">Blockly will be positioned here.</div>
-
-    <textarea id="textarea" style="position: absolute"></textarea>
-    <div id="blocklyDiv" style="position: absolute"></div>
-
+    <div class="float-container">
+        <div class="float-child" style="flex-grow: 3">
+            <div id="blocklyArea">Blockly will be positioned here.</div>
+            <div id="blocklyDiv" style="position: absolute"></div>
+        </div>
+        <div class="float-child" style="flex-grow: 1">
+            <textarea id="textarea" readonly="true" wrap="soft"></textarea>
+        </div>
+    </div>
     <script>
         var blocklyArea = document.getElementById('blocklyArea');
         var blocklyDiv = document.getElementById('blocklyDiv');
