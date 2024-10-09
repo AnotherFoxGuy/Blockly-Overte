@@ -2,9 +2,6 @@
 using Newtonsoft.Json;
 using Overte;
 
-Console.WriteLine("Hello, World!");
-
-
 var json = File.ReadAllText("hifiJSDoc.json");
 var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
 
@@ -15,7 +12,7 @@ var outp = "";
 
 var toolboxcont = new Dictionary<string, List<string>>();
 
-foreach (var t in data) // .Where(d => d.Name == "Avatar")
+foreach (var t in data.Where(d => d.Memberof == "MyAvatar")) // 
 {
     switch (t.Kind)
     {
@@ -24,10 +21,10 @@ foreach (var t in data) // .Where(d => d.Name == "Avatar")
             Console.WriteLine($"Class {t.Longname}");
             break;
         case Kind.Function:
-            outp += generateFunctionBlock(t);
-            var cat = t.Memberof ?? "Global";
-            toolboxcont.TryAdd(cat, []);
-            toolboxcont[cat].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
+            // outp += generateFunctionBlock(t);
+            // var cat = t.Memberof ?? "Global";
+            // toolboxcont.TryAdd(cat, []);
+            // toolboxcont[cat].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
             break;
         case Kind.Namespace:
             Console.WriteLine($"Namespace {t.Longname}");
@@ -37,6 +34,10 @@ foreach (var t in data) // .Where(d => d.Name == "Avatar")
             break;
         case Kind.Signal:
             Console.WriteLine($"Signal {t.Longname}");
+            outp += generateSignalBlock(t);
+            var cat2 = t.Memberof ?? "Global";
+            toolboxcont.TryAdd(cat2, []);
+            toolboxcont[cat2].Add($"{{\"kind\": \"block\",\"type\": \"{getBlockName(t)}\"}}");
             break;
         case Kind.Typedef:
             Console.WriteLine($"Typedef {t.Longname}");
@@ -95,6 +96,72 @@ string generateClassBlock(HifiJsDoc data)
     };
     javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
         {{{code_code}}}
+        
+        return {{{returns}}};
+    };
+    
+    """;
+}
+
+string generateSignalBlock(HifiJsDoc data)
+{
+    var block_name = getBlockName(data);
+
+    var block_input = "";
+
+    var code_fields = new List<string>();
+    var code_code = "";
+
+    if (data.Params != null)
+    {
+        foreach (var param in data.Params)
+        {
+            if (param.Type == null)
+                continue;
+
+            var parm_name = param.Name ?? "parameter";
+            parm_name = parm_name.Replace("-", "");
+            block_input += $$$"""
+            this.setOutput(true);
+            """;
+
+            code_code += $$$"""
+            const _{{{parm_name}}} = generator.valueToCode(block, '{{{parm_name}}}', javascript.javascriptGenerator.ORDER_ATOMIC);            
+            """;
+            code_fields.Add($"${{_{parm_name}}}");
+        }
+
+    }
+
+    var desc = data.Description?.Replace("'", "\\'") ?? "";
+    desc = Regex.Replace(desc, @"\t|\n|\r", "");
+
+    var returns = data.Params == null ?
+    $$$"""
+    `{{{data.Longname}}}.connect(() => {
+            ${innerCode}
+    });`
+    """:
+    $$$"""
+    [`{{{data.Longname}}}.connect(() => {
+            ${innerCode}
+    });`, javascript.javascriptGenerator.ORDER_NONE]
+    """;
+
+    return $$$"""
+    Blockly.Blocks['{{{block_name}}}'] = {
+        init: function() {
+            this.appendStatementInput('VALUE_INPUT')
+                .appendField('{{{data.Longname}}}');
+            {{{block_input}}}
+            this.setColour(160);
+            this.setTooltip('{{{desc}}}');
+            this.setHelpUrl('https://apidocs.overte.org/{{{data.Longname.Replace(".", ".html#.")}}}');
+        }
+    };
+    javascript.javascriptGenerator.forBlock['{{{block_name}}}'] = (block, generator) => {
+
+        const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
         
         return {{{returns}}};
     };
