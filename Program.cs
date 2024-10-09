@@ -16,12 +16,14 @@ var class_template = Template.Parse(File.ReadAllText("./classTemplate.js.sbn"), 
 var function_template = Template.Parse(File.ReadAllText("./functionTemplate.js.sbn"), "./functionTemplate.js.sbn");
 var signal_template = Template.Parse(File.ReadAllText("./signalTemplate.js.sbn"), "./signalTemplate.js.sbn");
 var typedef_template = Template.Parse(File.ReadAllText("./typedefTemplate.js.sbn"), "./typedefTemplate.js.sbn");
+var namespace_template = Template.Parse(File.ReadAllText("./namespaceTemplate.js.sbn"), "./namespaceTemplate.js.sbn");
 
 testTemplate(toolbox_template);
 testTemplate(class_template);
 testTemplate(function_template);
 testTemplate(signal_template);
 testTemplate(typedef_template);
+testTemplate(namespace_template);
 
 // var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
@@ -29,51 +31,83 @@ var outp = "";
 
 var toolboxcont = new Dictionary<string, List<string>>();
 var color_cache = new Dictionary<string, string>();
+var block_cache = new List<string>();
 
-foreach (var t in data) // .Where(d => d.Memberof == "MyAvatar")
+foreach (var t in data.Where(d => d.Deprecated == null)) // .Where(d => d.Memberof == "MyAvatar")
 {
     switch (t.Kind)
     {
-        case Kind.Class:
-            // outp += generateClassBlock(t);
-            Console.WriteLine($"Class {t.Longname}");
+        case Kind.Namespace:
+            Console.WriteLine($"Namespace {t.Longname}");
+            outp += generateNamespaceBlock(t);
             break;
         case Kind.Function:
             Console.WriteLine($"Function {t.Longname}");
-            // outp += generateFunctionBlock(t);
-            break;
-        case Kind.Namespace:
-            Console.WriteLine($"Namespace {t.Longname}");
-            break;
-        case Kind.Package:
-            Console.WriteLine($"Package {t.Longname}");
+            outp += generateFunctionBlock(t);
             break;
         case Kind.Signal:
             Console.WriteLine($"Signal {t.Longname}");
-            // outp += generateSignalBlock(t);
+            outp += generateSignalBlock(t);
             break;
         case Kind.Typedef:
             Console.WriteLine($"Typedef {t.Longname}");
             outp += generateTypedefBlock(t);
             break;
-        default:
-            break;
+            // default:
+            //     break;
     }
 
 }
 
-
 var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
 File.WriteAllText("./deploy/overte.js", outp + rend);
+
+string generateNamespaceBlock(HifiJsDoc data)
+{
+    var i = 0;
+    var block_name = getBlockName(data);
+    var outp = "";
+
+    if (data.Properties == null)
+        return outp;
+
+    foreach (var prop in data.Properties)
+    {
+        if (prop.Type == null || prop.Name == null)
+            continue;
+
+        var desc = prop.Description?.Replace("'", "\\'") ?? "";
+        desc = Regex.Replace(desc, @"\t|\n|\r", "");
+
+        var name = $"{data.Name}.{prop.Name}";
+
+        var template_data = new
+        {
+            Jsfunction = name,
+            Blockname = $"{data.Name}_{prop.Name}",
+            Description = desc,
+            Url = $"https://apidocs.overte.org/{name.Replace(".", ".html#.")}",
+            Color = catColor(data.Memberof ?? data.Name)
+        };
+        addToToolbox(data, $"{data.Name}_{prop.Name}");
+        outp += namespace_template.Render(template_data);
+    }
+
+    return outp;
+}
 
 
 string generateTypedefBlock(HifiJsDoc data)
 {
+    if (block_cache.Contains(data.Name))
+        return "";
+    block_cache.Add(data.Name);
+
     var i = 0;
     var block_name = getBlockName(data);
     var properties = new List<object>();
 
-    if (data.Properties == null)
+    if (data.Properties == null || data.Type?.Names.First() != "object")
         return "";
 
     foreach (var prop in data.Properties)
@@ -105,7 +139,7 @@ string generateTypedefBlock(HifiJsDoc data)
         Description = desc,
         Properties = properties,
         Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
-        Color = catColor(data.Memberof)
+        Color = catColor(data.Memberof ?? data.Name)
     };
 
     addToToolbox(data);
@@ -280,9 +314,9 @@ string catColor(string? cat)
     return color;
 }
 
-void addToToolbox(HifiJsDoc a)
+void addToToolbox(HifiJsDoc a, string? name = null)
 {
-    var cat = a.Memberof ?? "Global";
+    var cat = a.Memberof ?? a.Name;
     toolboxcont.TryAdd(cat, []);
-    toolboxcont[cat].Add(getBlockName(a));
+    toolboxcont[cat].Add(name ?? getBlockName(a));
 }

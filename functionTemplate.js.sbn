@@ -13,7 +13,7 @@ Blockly.Blocks['{{blockname}}'] = {
             .appendField('{{jsfunction}}')
         // Returns data
 {{~ for r in returns ~}}         
-        this.setOutput(true, '{{r}}');
+        this.setOutput(true, '{{returns}}');
 {{~ end ~}}
 
         // Params data
