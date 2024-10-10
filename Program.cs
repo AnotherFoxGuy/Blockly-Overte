@@ -39,7 +39,7 @@ function dfv(value, default_val){
 
 """;
 
-var toolboxcont = new Dictionary<string, List<string>>();
+var toolboxcont = new List<Toolbox>();
 var color_cache = new Dictionary<string, string>();
 var block_cache = new List<string>();
 
@@ -69,8 +69,9 @@ foreach (var t in data.Where(d => d.Deprecated == null)) // .Where(d => d.Member
 
 }
 
-toolboxcont = toolboxcont.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
-var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
+// toolboxcont = toolboxcont.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
+toolboxcont.Sort((x, y) => string.Compare(x.Name, y.Name));
+var rend = toolbox_template.Render(new { Toolbox = JsonConvert.SerializeObject(toolboxcont, Formatting.Indented) });
 File.WriteAllText("./deploy/overte.js", outp + rend);
 
 string generateNamespaceBlock(HifiJsDoc data)
@@ -95,15 +96,17 @@ string generateNamespaceBlock(HifiJsDoc data)
 
         var name = $"{data.Name}.{prop.Name}";
 
+        var color = catColor(data.Memberof ?? data.Name);
+
         var template_data = new
         {
             Jsfunction = name,
             Blockname = $"{data.Name}_{prop.Name}",
             Description = desc,
             Url = $"https://apidocs.overte.org/{name.Replace(".", ".html#.")}",
-            Color = catColor(data.Memberof ?? data.Name)
+            Color = color
         };
-        addToToolbox(data, $"{data.Name}_{prop.Name}");
+        addToToolbox(data, color, $"{data.Name}_{prop.Name}");
         outp += namespace_template.Render(template_data);
     }
 
@@ -146,6 +149,8 @@ string generateTypedefBlock(HifiJsDoc data)
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
+    var color = catColor(data.Memberof ?? data.Name);
+
     var template_data = new
     {
         Jsfunction = data.Longname,
@@ -153,10 +158,10 @@ string generateTypedefBlock(HifiJsDoc data)
         Description = desc,
         Properties = properties,
         Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
-        Color = catColor(data.Memberof ?? data.Name)
+        Color = color
     };
 
-    addToToolbox(data);
+    addToToolbox(data, color);
     return typedef_template.Render(template_data);
 }
 
@@ -208,6 +213,8 @@ string generateSignalBlock(HifiJsDoc data)
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
+    var color = catColor(data.Memberof);
+
     var template_data = new
     {
         Jsfunction = data.Longname,
@@ -215,10 +222,10 @@ string generateSignalBlock(HifiJsDoc data)
         Description = desc,
         Parameters = parameters,
         Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
-        Color = catColor(data.Memberof)
+        Color = color
     };
 
-    addToToolbox(data);
+    addToToolbox(data, color);
     return signal_template.Render(template_data);
 }
 
@@ -264,6 +271,8 @@ string generateFunctionBlock(HifiJsDoc data)
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
+    var color = catColor(data.Memberof);
+
     var template_data = new
     {
         Jsfunction = data.Longname,
@@ -272,10 +281,10 @@ string generateFunctionBlock(HifiJsDoc data)
         Parameters = parameters,
         Returns = returns,
         Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
-        Color = catColor(data.Memberof)
+        Color = color
     };
 
-    addToToolbox(data);
+    addToToolbox(data, color);
     return function_template.Render(template_data);
 }
 
@@ -345,9 +354,31 @@ string catColor(string? cat)
     return color;
 }
 
-void addToToolbox(HifiJsDoc a, string? name = null)
+void addToToolbox(HifiJsDoc a, string color, string? name = null)
 {
-    var cat = a.Memberof ?? a.Name;
-    toolboxcont.TryAdd(cat, []);
-    toolboxcont[cat].Add(name ?? getBlockName(a));
+    var category_name = a.Memberof ?? a.Name;
+
+    var box = toolboxcont.SingleOrDefault(x => x.Name == category_name);
+
+    if (box == null)
+    {
+        box = new Toolbox
+        {
+            Name = category_name,
+            Colour = color
+        };
+        toolboxcont.Add(box);
+    }
+
+    box.Contents.Add(new ToolboxBlock
+    {
+        Name = name ?? getBlockName(a),
+    });
+
+    // toolboxcont.TryAdd(cat, []);
+    // toolboxcont[cat].Add(new
+    // {
+    //     Name = name ?? getBlockName(a),
+    //     Color = color
+    // });
 }
