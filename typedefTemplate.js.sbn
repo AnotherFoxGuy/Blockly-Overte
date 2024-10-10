@@ -27,7 +27,7 @@ Blockly.Blocks['{{blockname}}'] = {
 };
 javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) => {
 {{~ for p in properties ~}} 
-    const _{{p.name}} = generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC);
+    const _{{p.name}} = dfv(generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC), `{{p.defaultvalue}}`);
 {{~ end ~}}
 
     return [`new {{jsfunction}}(

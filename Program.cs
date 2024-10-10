@@ -63,6 +63,10 @@ foreach (var t in data.Where(d => d.Deprecated == null)) // .Where(d => d.Member
             Console.WriteLine($"Typedef {t.Longname}");
             outp += generateTypedefBlock(t);
             break;
+        case Kind.Class:
+            Console.WriteLine($"Class {t.Longname}");
+            outp += generateClassBlock(t);
+            break;
             // default:
             //     break;
     }
@@ -124,7 +128,7 @@ string generateTypedefBlock(HifiJsDoc data)
 
     var i = 0;
     var block_name = getBlockName(data);
-    var properties = new List<object>();
+    var properties = new List<BlockParameter>();
 
     // if (data.Properties == null || data.Type?.Names.First() != "object")
     //     return "";
@@ -141,23 +145,26 @@ string generateTypedefBlock(HifiJsDoc data)
             if (parm_name == "")
                 parm_name = $"prop_{i++}";
 
-            properties.Add(new
+            properties.Add(new BlockParameter
             {
                 Name = parm_name,
                 Description = prop.Description,
-                Type = typeToJs(prop.Type)
+                Type = typeToJs(prop.Type),
+                Shadowtype = shadowTypeToJs(prop.Type),
+                Defaultvalue = getDefaultValue(prop),
             });
         }
     }
-    else
-    {
-        properties.Add(new
-        {
-            Name = "prop",
-            Description = data.Description,
-            Type = typeToJs(data.Type)
-        });
-    }
+    // else
+    // {
+    //     properties.Add(new BlockParameter
+    //     {
+    //         Name = "value",
+    //         Description = data.Description,
+    //         Type = typeToJs(data.Type),
+    //         Shadowtype = shadowTypeToJs(data.Type),
+    //     });
+    // }
 
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
@@ -174,25 +181,73 @@ string generateTypedefBlock(HifiJsDoc data)
         Color = color
     };
 
-    addToToolbox(data, color);
+    addToToolbox(data, color, properties);
     return typedef_template.Render(template_data);
 }
 
 
 string generateClassBlock(HifiJsDoc data)
 {
+    if (block_cache.Contains($"Class{data.Memberof}{data.Name}"))
+        return "";
+    block_cache.Add($"Class{data.Memberof}{data.Name}");
+
+    var i = 0;
+    var block_name = getBlockName(data);
+    var properties = new List<BlockParameter>();
+
+    // if (data.Properties == null || data.Type?.Names.First() != "object")
+    //     return "";
+
+    if (data.Properties != null)
+    {
+        foreach (var prop in data.Properties)
+        {
+            if (prop.Type == null)
+                continue;
+
+            var parm_name = prop.Name ?? $"prop_{i++}";
+            parm_name = Regex.Replace(parm_name, @"[^a-zA-Z0-9]", "");
+            if (parm_name == "")
+                parm_name = $"prop_{i++}";
+
+            properties.Add(new BlockParameter
+            {
+                Name = parm_name,
+                Description = prop.Description,
+                Type = typeToJs(prop.Type),
+                Shadowtype = shadowTypeToJs(prop.Type),
+                Defaultvalue = getDefaultValue(prop),
+            });
+        }
+    }
+    // else
+    // {
+    //     properties.Add(new BlockParameter
+    //     {
+    //         Name = "value",
+    //         Description = data.Description,
+    //         Type = typeToJs(data.Type),
+    //         Shadowtype = shadowTypeToJs(data.Type),
+    //     });
+    // }
+
     var desc = data.Description?.Replace("'", "\\'") ?? "";
     desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
+    var color = catColor(data.Memberof ?? data.Name);
+
     var template_data = new
     {
-        JsFunction = data.Longname,
-        Blockname = getBlockName(data),
+        Jsfunction = data.Longname,
+        Blockname = block_name,
         Description = desc,
-        // Codefields = string.Join(",", code_fields),
-        Properties = data.Properties
+        Properties = properties,
+        Url = $"https://apidocs.overte.org/{data.Longname.Replace(".", ".html#.")}",
+        Color = color
     };
 
+    addToToolbox(data, color, properties);
     return class_template.Render(template_data);
 }
 
@@ -253,7 +308,7 @@ string generateFunctionBlock(HifiJsDoc data)
 
     block_cache.Add($"Function{block_name}");
 
-    var parameters = new List<BlockParameters>();
+    var parameters = new List<BlockParameter>();
 
     if (data.Params != null)
     {
@@ -265,7 +320,7 @@ string generateFunctionBlock(HifiJsDoc data)
             var parm_name = param.Name ?? "parameter";
             parm_name = parm_name.Replace("-", "");
 
-            parameters.Add(new BlockParameters
+            parameters.Add(new BlockParameter
             {
                 Name = parm_name,
                 Type = typeToJs(param.Type),
@@ -314,10 +369,11 @@ string typeToJs(TypeClass type)
     var t = type.Names.First();
     if (t.Contains("Array"))
         return "Array";
-    return t switch
+    return t.ToLower() switch
     {
         "number" => "Number",
         "float" => "Number",
+        "int" => "Number",
         "boolean" => "Boolean",
         "string" => "String",
         "*" => "Any",
@@ -330,12 +386,15 @@ string shadowTypeToJs(TypeClass type)
     var t = type.Names.First();
     if (t.Contains("Array"))
         return "lists_create_with";
-    return t switch
+    return t.ToLower() switch
     {
         "number" => "math_number",
         "float" => "math_number",
+        "int" => "math_number",
         "boolean" => "logic_boolean",
         "string" => "text",
+        "vec3" => "Vec3_ZERO",
+        "quat" => "Quat_IDENTITY",
         "*" => "Any",
         _ => type.Names.First().Replace('.', '_'),
     };
@@ -394,7 +453,7 @@ string catColor(string? cat)
     return color;
 }
 
-void addToToolbox(HifiJsDoc a, string color, List<BlockParameters>? parameters = null, string? name = null)
+void addToToolbox(HifiJsDoc a, string color, List<BlockParameter>? parameters = null, string? name = null)
 {
     var category_name = a.Memberof ?? a.Name;
     var box = toolboxcont.SingleOrDefault(x => x.Name == category_name);
@@ -417,6 +476,9 @@ void addToToolbox(HifiJsDoc a, string color, List<BlockParameters>? parameters =
         box_block.Inputs = parameters.Where(
             x => !x.Shadowtype.Contains("object", StringComparison.CurrentCultureIgnoreCase)
             && !x.Shadowtype.Contains("function", StringComparison.CurrentCultureIgnoreCase)
+            && !x.Shadowtype.Contains("any", StringComparison.CurrentCultureIgnoreCase)
+            && !x.Shadowtype.Contains("callback", StringComparison.CurrentCultureIgnoreCase)
+            && !x.Shadowtype.Contains("value", StringComparison.CurrentCultureIgnoreCase)
         ).ToList();
 
     box.Contents.Add(box_block);

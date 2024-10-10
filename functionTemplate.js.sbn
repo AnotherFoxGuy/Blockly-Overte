@@ -55,12 +55,16 @@ javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) =>
 {{- end -}}
 {{- for p in parameters -}} 
     {{- if p.type == "function" -}}
-        () => { \n ${_{{p.name}}} \n }
+        () => { \n ${_{{p.name}}} }
     {{- else -}}
         ${_{{p.name}}}
     {{- end -}} {{- com -}}
 {{- end -}}
+{{- if returns.size == 0 -}}
 );\n`
+{{- else -}}
+)`
+{{- end -}}
 {{- if returns.size == 0 -}} ; {{- else -}}, javascript.javascriptGenerator.ORDER_NONE]; {{- end -}}
 
 };

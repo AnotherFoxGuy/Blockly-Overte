@@ -12,10 +12,10 @@ class ToolboxBlock
 {
     public string Name = "";
     // public string? Type;
-    public List<BlockParameters>? Inputs;
+    public List<BlockParameter>? Inputs;
 }
 
-class BlockParameters
+class BlockParameter
 {
     public string Name = "";
     public string Description = "";
