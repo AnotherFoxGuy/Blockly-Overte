@@ -4,9 +4,18 @@ class Toolbox
 {
     public string Name = "";
     public string Colour = "";
-    public List<ToolboxBlock> Contents = [];
+    public List<ToolboxCategory> Contents = [];
+
+    public bool Interface;
+    public bool ClientEntity;
+    public bool Avatar;
 }
 
+class ToolboxCategory
+{
+    public string Name = "";
+    public List<ToolboxBlock> Contents = [];
+}
 
 class ToolboxBlock
 {

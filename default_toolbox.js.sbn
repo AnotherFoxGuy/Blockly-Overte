@@ -274,26 +274,34 @@ var toobox_def = {
             "name": "{{item.name}}", 
             "colour": "{{item.colour}}",
             "contents": [
-            {{~ for c in item.contents ~}} 
+            {{~ for category in item.contents ~}} 
                 {
-                    "kind": "block",
-                    "type": "{{c.name}}"
-                    {{~ if c.inputs != null && c.inputs.size != 0 ~}},
-                    "inputs": {
-                        {{~ for i in c.inputs ~}} 
-                        "{{i.name}}": {
-                            "shadow": {
-                            "type": "{{i.shadowtype}}", 
-                            //"fields": {
-                            //    "{{i.name}}": `{{i.defaultvalue}}`
-                            //}
-                        },
-                        "block": undefined,
-                        }{{com}}
+                    "kind": "category",
+                    "name": "{{category.name}}",
+                    "contents": [
+                        {{~ for c in category.contents ~}} 
+                            {
+                                "kind": "block",
+                                "type": "{{c.name}}"
+                                {{~ if c.inputs != null && c.inputs.size != 0 ~}},
+                                "inputs": {
+                                    {{~ for i in c.inputs ~}} 
+                                    "{{i.name}}": {
+                                        "shadow": {
+                                        "type": "{{i.shadowtype}}", 
+                                        //"fields": {
+                                        //    "{{i.name}}": `{{i.defaultvalue}}`
+                                        //}
+                                    },
+                                    "block": undefined,
+                                    }{{com}}
+                                    {{~ end ~}}
+                                }
+                                {{~ end ~}}
+                            }{{com}}
                         {{~ end ~}}
-                    }
-                    {{~ end ~}}
-                }{{com}}
+                    ]
+                } {{com}}
             {{~ end ~}}
             ]
         } {{com}}

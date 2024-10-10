@@ -7,7 +7,7 @@ using System.Text;
 
 var json = File.ReadAllText("hifiJSDoc.json");
 json = json.Replace("(0)", "");
-var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json);
+var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json) ?? [];
 
 
 // Templates
@@ -75,10 +75,11 @@ foreach (var t in data.Where(d => d.Deprecated == null)) // .Where(d => d.Member
 
 // toolboxcont = toolboxcont.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
 toolboxcont.Sort((x, y) => string.Compare(x.Name, y.Name));
-var rend = toolbox_template.Render(new { Toolbox = toolboxcont });
 
 File.WriteAllText("./deploy/overte.js", outp);
-File.WriteAllText("./deploy/overte_toobox.js", rend);
+File.WriteAllText("./deploy/overte_toolbox_interface.js", toolbox_template.Render(new { Toolbox = toolboxcont.Where(x => x.Interface) }));
+File.WriteAllText("./deploy/overte_toolbox_cliententity.js", toolbox_template.Render(new { Toolbox = toolboxcont.Where(x => x.ClientEntity) }));
+File.WriteAllText("./deploy/overte_toolbox_avatar.js", toolbox_template.Render(new { Toolbox = toolboxcont.Where(x => x.Avatar) }));
 
 string generateNamespaceBlock(HifiJsDoc data)
 {
@@ -392,9 +393,11 @@ string shadowTypeToJs(TypeClass type)
         "float" => "math_number",
         "int" => "math_number",
         "boolean" => "logic_boolean",
+        // "date" => "field_date",
         "string" => "text",
         "vec3" => "Vec3_ZERO",
         "quat" => "Quat_IDENTITY",
+        "uuid" => "Uuid_NULL",
         "*" => "Any",
         _ => type.Names.First().Replace('.', '_'),
     };
@@ -437,8 +440,6 @@ void testTemplate(Template t)
     }
 }
 
-string normalizeVarName(string? inp) => inp == null ? "parameter" : inp.Replace("-", "");
-
 string catColor(string? cat)
 {
     if (cat == null)
@@ -453,33 +454,73 @@ string catColor(string? cat)
     return color;
 }
 
-void addToToolbox(HifiJsDoc a, string color, List<BlockParameter>? parameters = null, string? name = null)
+void addToToolbox(HifiJsDoc data, string color, List<BlockParameter>? parameters = null, string? name = null)
 {
-    var category_name = a.Memberof ?? a.Name;
-    var box = toolboxcont.SingleOrDefault(x => x.Name == category_name);
+    var group_name = data.Memberof ?? data.Name;
+    var category_name = data.Kind switch
+    {
+        Kind.Class => "Classes",
+        Kind.Function => "Functions",
+        Kind.Namespace => "Variables",
+        Kind.Package => "Packages",
+        Kind.Signal => "Signals",
+        Kind.Typedef => "Classes",
+        _ => "",
+    };
+
+    var box = toolboxcont.SingleOrDefault(x => x.Name == group_name);
     if (box == null)
     {
         box = new Toolbox
         {
-            Name = category_name,
+            Name = group_name,
             Colour = color
         };
         toolboxcont.Add(box);
     }
 
+    if (data.Kind == Kind.Class || data.Kind == Kind.Namespace)
+    {
+        box.Interface = data.HifiInterface ?? false;
+        box.ClientEntity = data.HifiClientEntity ?? false;
+        box.Avatar = data.HifiAvatar ?? false;
+    }
+
     var box_block = new ToolboxBlock
     {
-        Name = name ?? getBlockName(a)
+        Name = name ?? getBlockName(data)
     };
 
     if (parameters != null)
-        box_block.Inputs = parameters.Where(
-            x => !x.Shadowtype.Contains("object", StringComparison.CurrentCultureIgnoreCase)
-            && !x.Shadowtype.Contains("function", StringComparison.CurrentCultureIgnoreCase)
-            && !x.Shadowtype.Contains("any", StringComparison.CurrentCultureIgnoreCase)
-            && !x.Shadowtype.Contains("callback", StringComparison.CurrentCultureIgnoreCase)
-            && !x.Shadowtype.Contains("value", StringComparison.CurrentCultureIgnoreCase)
-        ).ToList();
+        box_block.Inputs = parameters.Where(cleanList).ToList();
 
-    box.Contents.Add(box_block);
+    var category = box.Contents.SingleOrDefault(x => x.Name == category_name);
+    if (category == null)
+    {
+        category = new ToolboxCategory
+        {
+            Name = category_name
+        };
+        box.Contents.Add(category);
+    }
+
+    category.Contents.Add(box_block);
+}
+
+bool cleanList(BlockParameter parameter)
+{
+    var l = new string[] {
+        "object",
+        "function",
+        "any",
+        "callback",
+        "value",
+        "deleteoptions",
+        "date",
+        "condition"
+    };
+    foreach (var i in l)
+        if (parameter.Shadowtype.Contains(i, StringComparison.CurrentCultureIgnoreCase))
+            return false;
+    return true;
 }
