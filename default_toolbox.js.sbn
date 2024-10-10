@@ -1,10 +1,19 @@
-
-
-var overte_toolbox = {{ toolbox }}
+{{~
+func com
+    if !for.last 
+        ret ','
+    end
+end
+~}}
 
 var toobox_def = {
     "kind": "categoryToolbox",
     "contents": [
+        {
+            'kind': 'search',
+            'name': 'Search',
+            'contents': [],
+        },
         {
             "kind": "CATEGORY",
             "contents": [
@@ -186,19 +195,6 @@ var toobox_def = {
                 {
                     "kind": "BLOCK",
                     "type": "text_reverse"
-                },
-                {
-                    "kind": "LABEL",
-                    "text": "Input/Output:",
-                    "web-class": "ioLabel"
-                },
-                {
-                    "kind": "BLOCK",
-                    "type": "text_print"
-                },
-                {
-                    "kind": "BLOCK",
-                    "type": "text_prompt_ext"
                 }
             ],
             "name": "Text",
@@ -207,10 +203,6 @@ var toobox_def = {
         {
             "kind": "CATEGORY",
             "contents": [
-                {
-                    "kind": "BLOCK",
-                    "type": "lists_create_with"
-                },
                 {
                     "kind": "BLOCK",
                     "type": "lists_create_with"
@@ -271,6 +263,40 @@ var toobox_def = {
             "categorystyle": "procedure_category",
             "custom": "PROCEDURE"
         },
-        ...overte_toolbox
+        {
+            "kind": "LABEL",
+            "text": "Overte blocks",
+            "web-class": "ioLabel"
+        },
+        {{~ for item in toolbox ~}} 
+        { 
+            "kind": "category",
+            "name": "{{item.name}}", 
+            "colour": "{{item.colour}}",
+            "contents": [
+            {{~ for c in item.contents ~}} 
+                {
+                    "kind": "block",
+                    "type": "{{c.name}}"
+                    {{~ if c.inputs != null && c.inputs.size != 0 ~}},
+                    "inputs": {
+                        {{~ for i in c.inputs ~}} 
+                        "{{i.name}}": {
+                            "shadow": {
+                            "type": "{{i.shadowtype}}", 
+                            //"fields": {
+                            //    "{{i.name}}": `{{i.defaultvalue}}`
+                            //}
+                        },
+                        "block": undefined,
+                        }{{com}}
+                        {{~ end ~}}
+                    }
+                    {{~ end ~}}
+                }{{com}}
+            {{~ end ~}}
+            ]
+        } {{com}}
+        {{~ end ~}}
     ]
 }

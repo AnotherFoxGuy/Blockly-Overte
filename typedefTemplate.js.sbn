@@ -6,7 +6,7 @@ func com
 end
 ~}}
 
-
+// Blockly typedef
 Blockly.Blocks['{{blockname}}'] = {
     init: function() {
         this.appendDummyInput()

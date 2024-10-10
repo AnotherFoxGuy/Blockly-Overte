@@ -6,7 +6,7 @@ func com
 end
 ~}}
 
-
+// Blockly function
 Blockly.Blocks['{{blockname}}'] = {
     init: function() {
         this.appendDummyInput()
@@ -64,3 +64,4 @@ javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) =>
 {{- if returns.size == 0 -}} ; {{- else -}}, javascript.javascriptGenerator.ORDER_NONE]; {{- end -}}
 
 };
+
