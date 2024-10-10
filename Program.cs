@@ -27,7 +27,17 @@ testTemplate(namespace_template);
 
 // var test = data.Where(d => d.Memberof == "Agent" || d.Name == "Agent");
 
-var outp = "";
+var outp = """
+function dfv(value, default_val){
+    if(!value || value.length === 0){
+        return  default_val.length === 0 ? "\"\"" : default_val;
+    }  
+    else {
+        return value;
+    }    
+}
+
+""";
 
 var toolboxcont = new Dictionary<string, List<string>>();
 var color_cache = new Dictionary<string, string>();
@@ -69,7 +79,6 @@ string generateNamespaceBlock(HifiJsDoc data)
         return "";
     block_cache.Add($"{data.Memberof}{data.Name}");
 
-    var i = 0;
     var block_name = getBlockName(data);
     var outp = "";
 
@@ -232,7 +241,8 @@ string generateFunctionBlock(HifiJsDoc data)
             parameters.Add(new
             {
                 Name = parm_name,
-                Type = typeToJs(param.Type)
+                Type = typeToJs(param.Type),
+                Defaultvalue = getDefaultValue(param),
             });
         }
     }
@@ -283,16 +293,28 @@ string typeToJs(TypeClass type)
     };
 }
 
-string getBlocklyField(TypeClass type)
+object getDefaultValue(Param parm)
 {
-    return type.Names.First() switch
+    if (parm.Defaultvalue == null)
     {
-        "number" => "Number",
-        "boolean" => "Boolean",
-        "string" => "String",
-        "*" => "Any",
-        _ => "",
-    };
+        return parm.Type.Names.First() switch
+        {
+            "number" => 0,
+            "boolean" => false,
+            "string" => "",
+            _ => "",
+        };
+    }
+    else
+    {
+        if (parm.Defaultvalue.Value.Bool != null)
+            return parm.Defaultvalue.Value.Bool;
+        if (parm.Defaultvalue.Value.String != null)
+            return parm.Defaultvalue.Value.String;
+        if (parm.Defaultvalue.Value.Double != null)
+            return parm.Defaultvalue.Value.Double;
+        return "";
+    }
 }
 
 

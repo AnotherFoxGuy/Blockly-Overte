@@ -30,6 +30,10 @@ javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) =>
     const _{{p.name}} = generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC);
 {{~ end ~}}
 
-    return [`new {{jsfunction}}({{~ for p in properties ~}} ${_{{p.name}}}{{~ com ~}}{{~ end ~}})`, javascript.javascriptGenerator.ORDER_NONE];
+    return [`new {{jsfunction}}(
+{{- for p in properties -}} 
+    ${_{{p.name}}}{{~ com ~}}
+{{- end -}}
+)`, javascript.javascriptGenerator.ORDER_NONE];
 
 };

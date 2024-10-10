@@ -21,5 +21,5 @@ javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) =>
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     return `{{jsfunction}}.connect(() => {
         ${innerCode}
-    });`;
+    });\n`;
 };

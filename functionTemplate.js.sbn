@@ -44,29 +44,23 @@ javascript.javascriptGenerator.forBlock['{{blockname}}'] = (block, generator) =>
 {{~ if p.type == "function" ~}}
     const _{{p.name}} = generator.statementToCode(block, '{{p.name}}');
 {{~ else ~}}
-    const _{{p.name}} = generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC);
+    const _{{p.name}} = dfv(generator.valueToCode(block, '{{p.name}}', javascript.javascriptGenerator.ORDER_ATOMIC), `{{p.defaultvalue}}`);
 {{~ end ~}}
 {{~ end ~}}
 
-{{if returns.size == 0}}
+{{ if returns.size == 0 }}
     return `{{jsfunction}}(
-{{~ for p in parameters ~}} 
-    {{~ if p.type == "function" ~}}
-        () => { ${_{{p.name}}} }
-    {{~ else ~}}
-        ${_{{p.name}}}
-    {{~ end ~}} {{~ com ~}}
-{{~ end ~}}
-    );`;
-{{else}}
+{{- else -}}
     return [`{{jsfunction}}(
-{{~ for p in parameters ~}} 
-    {{~ if p.type == "function" ~}}
-        () => { ${_{{p.name}}} }
-    {{~ else ~}}
+{{- end -}}
+{{- for p in parameters -}} 
+    {{- if p.type == "function" -}}
+        () => { \n ${_{{p.name}}} \n }
+    {{- else -}}
         ${_{{p.name}}}
-    {{~ end ~}}{{~ com ~}}
-{{~ end ~}}
-    );`, javascript.javascriptGenerator.ORDER_NONE];
-{{end}}
+    {{- end -}} {{- com -}}
+{{- end -}}
+);\n`
+{{- if returns.size == 0 -}} ; {{- else -}}, javascript.javascriptGenerator.ORDER_NONE]; {{- end -}}
+
 };
