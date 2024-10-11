@@ -60,12 +60,15 @@
             <div id="blocklyDiv" style="position: absolute"></div>
         </div>
         <div class="float-child" style="flex-grow: 1">
+            <button onclick="Save()">Save</button> 
+            <button onclick="Load()">Load</button> 
             <textarea id="textarea" readonly="true" wrap="soft"></textarea>
         </div>
     </div>
     <script>
         var blocklyArea = document.getElementById('blocklyArea');
-        var blocklyDiv = document.getElementById('blocklyDiv');
+        var blocklyDiv = document.getElementById('blocklyDiv');       
+
 
         console.log(toobox_def)
         var workspace = Blockly.inject(blocklyDiv, {
@@ -107,6 +110,15 @@
             const code = javascript.javascriptGenerator.workspaceToCode(workspace);
             document.getElementById('textarea').value = code;
             console.log(code)
+        }
+
+        function Save(){
+            const data = Blockly.serialization.workspaces.save(workspace);
+            localStorage.setItem("workspace", JSON.stringify(data));
+        }
+        function Load(){
+            const data = localStorage.getItem("workspace");
+            Blockly.serialization.workspaces.load(JSON.parse(data), workspace);
         }
 
         Blockly.JavaScript.init(workspace);
