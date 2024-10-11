@@ -109,6 +109,7 @@
             console.log(code)
         }
 
+        Blockly.JavaScript.init(workspace);
         workspace.addChangeListener(updateCode);
         workspace.addChangeListener(shadowBlockConversionChangeListener);
     </script>

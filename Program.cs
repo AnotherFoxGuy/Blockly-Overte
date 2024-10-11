@@ -88,10 +88,27 @@ string generateNamespaceBlock(HifiJsDoc data)
     block_cache.Add($"Namespace{data.Memberof}{data.Name}");
 
     var block_name = getBlockName(data);
+    var color = catColor(data.Memberof ?? data.Name);
     var outp = "";
 
     if (data.Properties == null)
+    {
+        var box = toolboxcont.SingleOrDefault(x => x.Name == data.Name);
+        if (box == null)
+        {
+            box = new Toolbox
+            {
+                Name = data.Name,
+                Colour = color
+            };
+            toolboxcont.Add(box);
+        }
+        box.Interface = data.HifiInterface ?? false;
+        box.ClientEntity = data.HifiClientEntity ?? false;
+        box.Avatar = data.HifiAvatar ?? false;
+
         return outp;
+    }
 
     foreach (var prop in data.Properties)
     {
@@ -102,8 +119,6 @@ string generateNamespaceBlock(HifiJsDoc data)
         desc = Regex.Replace(desc, @"\t|\n|\r", "");
 
         var name = $"{data.Name}.{prop.Name}";
-
-        var color = catColor(data.Memberof ?? data.Name);
 
         var template_data = new
         {
@@ -286,6 +301,7 @@ string generateSignalBlock(HifiJsDoc data)
 
     var template_data = new
     {
+        Name = data.Name,
         Jsfunction = data.Longname,
         Blockname = getBlockName(data),
         Description = desc,
