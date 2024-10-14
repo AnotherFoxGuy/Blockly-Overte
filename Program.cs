@@ -11,12 +11,12 @@ var data = JsonConvert.DeserializeObject<List<HifiJsDoc>>(json) ?? [];
 
 
 // Templates
-var toolbox_template = Template.Parse(File.ReadAllText("./default_toolbox.js.sbn"), "./default_toolbox.js.sbn");
-var class_template = Template.Parse(File.ReadAllText("./classTemplate.js.sbn"), "./classTemplate.js.sbn");
-var function_template = Template.Parse(File.ReadAllText("./functionTemplate.js.sbn"), "./functionTemplate.js.sbn");
-var signal_template = Template.Parse(File.ReadAllText("./signalTemplate.js.sbn"), "./signalTemplate.js.sbn");
-var typedef_template = Template.Parse(File.ReadAllText("./typedefTemplate.js.sbn"), "./typedefTemplate.js.sbn");
-var namespace_template = Template.Parse(File.ReadAllText("./namespaceTemplate.js.sbn"), "./namespaceTemplate.js.sbn");
+var toolbox_template = Template.Parse(File.ReadAllText("./templates/default_toolbox.js.sbn"), "./templates/default_toolbox.js.sbn");
+var class_template = Template.Parse(File.ReadAllText("./templates/classTemplate.js.sbn"), "./templates/classTemplate.js.sbn");
+var function_template = Template.Parse(File.ReadAllText("./templates/functionTemplate.js.sbn"), "./templates/functionTemplate.js.sbn");
+var signal_template = Template.Parse(File.ReadAllText("./templates/signalTemplate.js.sbn"), "./templates/signalTemplate.js.sbn");
+var typedef_template = Template.Parse(File.ReadAllText("./templates/typedefTemplate.js.sbn"), "./templates/typedefTemplate.js.sbn");
+var namespace_template = Template.Parse(File.ReadAllText("./templates/namespaceTemplate.js.sbn"), "./templates/namespaceTemplate.js.sbn");
 
 testTemplate(toolbox_template);
 testTemplate(class_template);
