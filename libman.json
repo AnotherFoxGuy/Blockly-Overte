@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "blockly@11.1.1",
+      "destination": "deploy/blockly",
+      "files": [
+        "blockly_compressed.js",
+        "blockly_compressed.js.map",
+        "blocks_compressed.js",
+        "javascript_compressed.js",
+        "msg/en.js"
+      ]
+    },
+    {
+      "library": "@blockly/plugin-workspace-search@9.1.2",
+      "destination": "deploy/workspace-search",
+      "files": [
+        "dist/index.js"
+      ]
+    },
+    {
+      "library": "@blockly/shadow-block-converter@6.0.9",
+      "destination": "deploy/shadow-block-converter",
+      "files": [
+        "dist/index.js"
+      ]
+    },
+    {
+      "library": "@blockly/toolbox-search@2.0.9",
+      "destination": "deploy/toolbox-search",
+      "files": [
+        "dist/index.js"
+      ]
+    },
+    {
+      "library": "@blockly/field-date@5.0.22",
+      "destination": "deploy/field-date",
+      "files": [
+        "dist/date_compressed.js"
+      ]
+    }
+  ]
+}

@@ -485,5 +485,5 @@ $RECYCLE.BIN/
 
 tmp/*
 hifiJSDoc.json
-deploy/overte.js
-deploy/overte_*.js
+deploy/*
+!deploy/index.html
