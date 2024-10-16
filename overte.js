@@ -1290,7 +1290,7 @@ javascript.javascriptGenerator.forBlock['AvatarBookmarks_bookmarkLoaded'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const bookmarkName = generator.getVariableName(block.getFieldValue('bookmarkName'));
 
-return `AvatarBookmarks.bookmarkLoaded.connect(_bookmarkName) => { 
+return `AvatarBookmarks.bookmarkLoaded.connect((_bookmarkName) => { 
   ${bookmarkName} = _bookmarkName;
 ${innerCode}
 });\n`;};
@@ -1314,7 +1314,7 @@ javascript.javascriptGenerator.forBlock['AvatarBookmarks_bookmarkDeleted'] = (bl
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const bookmarkName = generator.getVariableName(block.getFieldValue('bookmarkName'));
 
-return `AvatarBookmarks.bookmarkDeleted.connect(_bookmarkName) => { 
+return `AvatarBookmarks.bookmarkDeleted.connect((_bookmarkName) => { 
   ${bookmarkName} = _bookmarkName;
 ${innerCode}
 });\n`;};
@@ -1338,7 +1338,7 @@ javascript.javascriptGenerator.forBlock['AvatarBookmarks_bookmarkAdded'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const bookmarkName = generator.getVariableName(block.getFieldValue('bookmarkName'));
 
-return `AvatarBookmarks.bookmarkAdded.connect(_bookmarkName) => { 
+return `AvatarBookmarks.bookmarkAdded.connect((_bookmarkName) => { 
   ${bookmarkName} = _bookmarkName;
 ${innerCode}
 });\n`;};
@@ -2382,7 +2382,7 @@ javascript.javascriptGenerator.forBlock['SpeechRecognizer_commandRecognized'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const command = generator.getVariableName(block.getFieldValue('command'));
 
-return `SpeechRecognizer.commandRecognized.connect(_command) => { 
+return `SpeechRecognizer.commandRecognized.connect((_command) => { 
   ${command} = _command;
 ${innerCode}
 });\n`;};
@@ -2406,7 +2406,7 @@ javascript.javascriptGenerator.forBlock['SpeechRecognizer_enabledUpdated'] = (bl
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `SpeechRecognizer.enabledUpdated.connect(_enabled) => { 
+return `SpeechRecognizer.enabledUpdated.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -8023,7 +8023,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_analogPlusWalkSpeedChanged'] =
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const speed = generator.getVariableName(block.getFieldValue('speed'));
 
-return `MyAvatar.analogPlusWalkSpeedChanged.connect(_speed) => { 
+return `MyAvatar.analogPlusWalkSpeedChanged.connect((_speed) => { 
   ${speed} = _speed;
 ${innerCode}
 });\n`;};
@@ -8047,7 +8047,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_analogPlusSprintSpeedChanged']
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const speed = generator.getVariableName(block.getFieldValue('speed'));
 
-return `MyAvatar.analogPlusSprintSpeedChanged.connect(_speed) => { 
+return `MyAvatar.analogPlusSprintSpeedChanged.connect((_speed) => { 
   ${speed} = _speed;
 ${innerCode}
 });\n`;};
@@ -8071,7 +8071,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_sprintSpeedChanged'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const speed = generator.getVariableName(block.getFieldValue('speed'));
 
-return `MyAvatar.sprintSpeedChanged.connect(_speed) => { 
+return `MyAvatar.sprintSpeedChanged.connect((_speed) => { 
   ${speed} = _speed;
 ${innerCode}
 });\n`;};
@@ -8095,7 +8095,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_walkBackwardSpeedChanged'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const speed = generator.getVariableName(block.getFieldValue('speed'));
 
-return `MyAvatar.walkBackwardSpeedChanged.connect(_speed) => { 
+return `MyAvatar.walkBackwardSpeedChanged.connect((_speed) => { 
   ${speed} = _speed;
 ${innerCode}
 });\n`;};
@@ -8119,7 +8119,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_newCollisionSoundURL'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const url = generator.getVariableName(block.getFieldValue('url'));
 
-return `MyAvatar.newCollisionSoundURL.connect(_url) => { 
+return `MyAvatar.newCollisionSoundURL.connect((_url) => { 
   ${url} = _url;
 ${innerCode}
 });\n`;};
@@ -8143,7 +8143,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_collisionWithEntity'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const collision = generator.getVariableName(block.getFieldValue('collision'));
 
-return `MyAvatar.collisionWithEntity.connect(_collision) => { 
+return `MyAvatar.collisionWithEntity.connect((_collision) => { 
   ${collision} = _collision;
 ${innerCode}
 });\n`;};
@@ -8167,7 +8167,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_collisionsEnabledChanged'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `MyAvatar.collisionsEnabledChanged.connect(_enabled) => { 
+return `MyAvatar.collisionsEnabledChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -8191,7 +8191,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_otherAvatarsCollisionsEnabledC
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `MyAvatar.otherAvatarsCollisionsEnabledChanged.connect(_enabled) => { 
+return `MyAvatar.otherAvatarsCollisionsEnabledChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -8215,7 +8215,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_animGraphUrlChanged'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const url = generator.getVariableName(block.getFieldValue('url'));
 
-return `MyAvatar.animGraphUrlChanged.connect(_url) => { 
+return `MyAvatar.animGraphUrlChanged.connect((_url) => { 
   ${url} = _url;
 ${innerCode}
 });\n`;};
@@ -8359,7 +8359,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_dominantHandChanged'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const hand = generator.getVariableName(block.getFieldValue('hand'));
 
-return `MyAvatar.dominantHandChanged.connect(_hand) => { 
+return `MyAvatar.dominantHandChanged.connect((_hand) => { 
   ${hand} = _hand;
 ${innerCode}
 });\n`;};
@@ -8383,7 +8383,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_hmdAvatarAlignmentTypeChanged'
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const type = generator.getVariableName(block.getFieldValue('type'));
 
-return `MyAvatar.hmdAvatarAlignmentTypeChanged.connect(_type) => { 
+return `MyAvatar.hmdAvatarAlignmentTypeChanged.connect((_type) => { 
   ${type} = _type;
 ${innerCode}
 });\n`;};
@@ -8407,7 +8407,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_sensorToWorldScaleChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const scale = generator.getVariableName(block.getFieldValue('scale'));
 
-return `MyAvatar.sensorToWorldScaleChanged.connect(_scale) => { 
+return `MyAvatar.sensorToWorldScaleChanged.connect((_scale) => { 
   ${scale} = _scale;
 ${innerCode}
 });\n`;};
@@ -8451,7 +8451,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_shouldDisableHandTouchChanged'
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const disabled = generator.getVariableName(block.getFieldValue('disabled'));
 
-return `MyAvatar.shouldDisableHandTouchChanged.connect(_disabled) => { 
+return `MyAvatar.shouldDisableHandTouchChanged.connect((_disabled) => { 
   ${disabled} = _disabled;
 ${innerCode}
 });\n`;};
@@ -8479,7 +8479,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_disableHandTouchForIDChanged']
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const disabled = generator.getVariableName(block.getFieldValue('disabled'));
 
-return `MyAvatar.disableHandTouchForIDChanged.connect(_entityID,_disabled) => { 
+return `MyAvatar.disableHandTouchForIDChanged.connect((_entityID,_disabled) => { 
   ${entityID} = _entityID; 
   ${disabled} = _disabled;
 ${innerCode}
@@ -11197,7 +11197,7 @@ javascript.javascriptGenerator.forBlock['AccountServices_disconnected'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const reason = generator.getVariableName(block.getFieldValue('reason'));
 
-return `AccountServices.disconnected.connect(_reason) => { 
+return `AccountServices.disconnected.connect((_reason) => { 
   ${reason} = _reason;
 ${innerCode}
 });\n`;};
@@ -11221,7 +11221,7 @@ javascript.javascriptGenerator.forBlock['AccountServices_myUsernameChanged'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const username = generator.getVariableName(block.getFieldValue('username'));
 
-return `AccountServices.myUsernameChanged.connect(_username) => { 
+return `AccountServices.myUsernameChanged.connect((_username) => { 
   ${username} = _username;
 ${innerCode}
 });\n`;};
@@ -11245,7 +11245,7 @@ javascript.javascriptGenerator.forBlock['AccountServices_downloadInfoChanged'] =
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const downloadInfo = generator.getVariableName(block.getFieldValue('downloadInfo'));
 
-return `AccountServices.downloadInfoChanged.connect(_downloadInfo) => { 
+return `AccountServices.downloadInfoChanged.connect((_downloadInfo) => { 
   ${downloadInfo} = _downloadInfo;
 ${innerCode}
 });\n`;};
@@ -11269,7 +11269,7 @@ javascript.javascriptGenerator.forBlock['AccountServices_findableByChanged'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const findableBy = generator.getVariableName(block.getFieldValue('findableBy'));
 
-return `AccountServices.findableByChanged.connect(_findableBy) => { 
+return `AccountServices.findableByChanged.connect((_findableBy) => { 
   ${findableBy} = _findableBy;
 ${innerCode}
 });\n`;};
@@ -11293,7 +11293,7 @@ javascript.javascriptGenerator.forBlock['AccountServices_loggedInChanged'] = (bl
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const loggedIn = generator.getVariableName(block.getFieldValue('loggedIn'));
 
-return `AccountServices.loggedInChanged.connect(_loggedIn) => { 
+return `AccountServices.loggedInChanged.connect((_loggedIn) => { 
   ${loggedIn} = _loggedIn;
 ${innerCode}
 });\n`;};
@@ -12057,7 +12057,7 @@ javascript.javascriptGenerator.forBlock['Audio_mutedChanged'] = (block, generato
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isMuted = generator.getVariableName(block.getFieldValue('isMuted'));
 
-return `Audio.mutedChanged.connect(_isMuted) => { 
+return `Audio.mutedChanged.connect((_isMuted) => { 
   ${isMuted} = _isMuted;
 ${innerCode}
 });\n`;};
@@ -12081,7 +12081,7 @@ javascript.javascriptGenerator.forBlock['Audio_mutedDesektopChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isMuted = generator.getVariableName(block.getFieldValue('isMuted'));
 
-return `Audio.mutedDesektopChanged.connect(_isMuted) => { 
+return `Audio.mutedDesektopChanged.connect((_isMuted) => { 
   ${isMuted} = _isMuted;
 ${innerCode}
 });\n`;};
@@ -12105,7 +12105,7 @@ javascript.javascriptGenerator.forBlock['Audio_mutedHMDChanged'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isMuted = generator.getVariableName(block.getFieldValue('isMuted'));
 
-return `Audio.mutedHMDChanged.connect(_isMuted) => { 
+return `Audio.mutedHMDChanged.connect((_isMuted) => { 
   ${isMuted} = _isMuted;
 ${innerCode}
 });\n`;};
@@ -12129,7 +12129,7 @@ javascript.javascriptGenerator.forBlock['Audio_pushToTalkChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `Audio.pushToTalkChanged.connect(_enabled) => { 
+return `Audio.pushToTalkChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -12153,7 +12153,7 @@ javascript.javascriptGenerator.forBlock['Audio_pushToTalkDesktopChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `Audio.pushToTalkDesktopChanged.connect(_enabled) => { 
+return `Audio.pushToTalkDesktopChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -12177,7 +12177,7 @@ javascript.javascriptGenerator.forBlock['Audio_pushToTalkHMDChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `Audio.pushToTalkHMDChanged.connect(_enabled) => { 
+return `Audio.pushToTalkHMDChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -12201,7 +12201,7 @@ javascript.javascriptGenerator.forBlock['Audio_noiseReductionChanged'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isEnabled = generator.getVariableName(block.getFieldValue('isEnabled'));
 
-return `Audio.noiseReductionChanged.connect(_isEnabled) => { 
+return `Audio.noiseReductionChanged.connect((_isEnabled) => { 
   ${isEnabled} = _isEnabled;
 ${innerCode}
 });\n`;};
@@ -12225,7 +12225,7 @@ javascript.javascriptGenerator.forBlock['Audio_noiseReductionAutomaticChanged'] 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isEnabled = generator.getVariableName(block.getFieldValue('isEnabled'));
 
-return `Audio.noiseReductionAutomaticChanged.connect(_isEnabled) => { 
+return `Audio.noiseReductionAutomaticChanged.connect((_isEnabled) => { 
   ${isEnabled} = _isEnabled;
 ${innerCode}
 });\n`;};
@@ -12249,7 +12249,7 @@ javascript.javascriptGenerator.forBlock['Audio_noiseReductionThresholdChanged'] 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const threshold = generator.getVariableName(block.getFieldValue('threshold'));
 
-return `Audio.noiseReductionThresholdChanged.connect(_threshold) => { 
+return `Audio.noiseReductionThresholdChanged.connect((_threshold) => { 
   ${threshold} = _threshold;
 ${innerCode}
 });\n`;};
@@ -12273,7 +12273,7 @@ javascript.javascriptGenerator.forBlock['Audio_warnWhenMutedChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isEnabled = generator.getVariableName(block.getFieldValue('isEnabled'));
 
-return `Audio.warnWhenMutedChanged.connect(_isEnabled) => { 
+return `Audio.warnWhenMutedChanged.connect((_isEnabled) => { 
   ${isEnabled} = _isEnabled;
 ${innerCode}
 });\n`;};
@@ -12297,7 +12297,7 @@ javascript.javascriptGenerator.forBlock['Audio_acousticEchoCancellationChanged']
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isEnabled = generator.getVariableName(block.getFieldValue('isEnabled'));
 
-return `Audio.acousticEchoCancellationChanged.connect(_isEnabled) => { 
+return `Audio.acousticEchoCancellationChanged.connect((_isEnabled) => { 
   ${isEnabled} = _isEnabled;
 ${innerCode}
 });\n`;};
@@ -12321,7 +12321,7 @@ javascript.javascriptGenerator.forBlock['Audio_inputVolumeChanged'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const volume = generator.getVariableName(block.getFieldValue('volume'));
 
-return `Audio.inputVolumeChanged.connect(_volume) => { 
+return `Audio.inputVolumeChanged.connect((_volume) => { 
   ${volume} = _volume;
 ${innerCode}
 });\n`;};
@@ -12345,7 +12345,7 @@ javascript.javascriptGenerator.forBlock['Audio_inputLevelChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const level = generator.getVariableName(block.getFieldValue('level'));
 
-return `Audio.inputLevelChanged.connect(_level) => { 
+return `Audio.inputLevelChanged.connect((_level) => { 
   ${level} = _level;
 ${innerCode}
 });\n`;};
@@ -12369,7 +12369,7 @@ javascript.javascriptGenerator.forBlock['Audio_clippingChanged'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isClipping = generator.getVariableName(block.getFieldValue('isClipping'));
 
-return `Audio.clippingChanged.connect(_isClipping) => { 
+return `Audio.clippingChanged.connect((_isClipping) => { 
   ${isClipping} = _isClipping;
 ${innerCode}
 });\n`;};
@@ -12393,7 +12393,7 @@ javascript.javascriptGenerator.forBlock['Audio_contextChanged'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const context = generator.getVariableName(block.getFieldValue('context'));
 
-return `Audio.contextChanged.connect(_context) => { 
+return `Audio.contextChanged.connect((_context) => { 
   ${context} = _context;
 ${innerCode}
 });\n`;};
@@ -12417,7 +12417,7 @@ javascript.javascriptGenerator.forBlock['Audio_pushingToTalkChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const talking = generator.getVariableName(block.getFieldValue('talking'));
 
-return `Audio.pushingToTalkChanged.connect(_talking) => { 
+return `Audio.pushingToTalkChanged.connect((_talking) => { 
   ${talking} = _talking;
 ${innerCode}
 });\n`;};
@@ -12441,7 +12441,7 @@ javascript.javascriptGenerator.forBlock['Audio_avatarGainChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const gain = generator.getVariableName(block.getFieldValue('gain'));
 
-return `Audio.avatarGainChanged.connect(_gain) => { 
+return `Audio.avatarGainChanged.connect((_gain) => { 
   ${gain} = _gain;
 ${innerCode}
 });\n`;};
@@ -12465,7 +12465,7 @@ javascript.javascriptGenerator.forBlock['Audio_localInjectorGainChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const gain = generator.getVariableName(block.getFieldValue('gain'));
 
-return `Audio.localInjectorGainChanged.connect(_gain) => { 
+return `Audio.localInjectorGainChanged.connect((_gain) => { 
   ${gain} = _gain;
 ${innerCode}
 });\n`;};
@@ -12489,7 +12489,7 @@ javascript.javascriptGenerator.forBlock['Audio_serverInjectorGainChanged'] = (bl
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const gain = generator.getVariableName(block.getFieldValue('gain'));
 
-return `Audio.serverInjectorGainChanged.connect(_gain) => { 
+return `Audio.serverInjectorGainChanged.connect((_gain) => { 
   ${gain} = _gain;
 ${innerCode}
 });\n`;};
@@ -12513,7 +12513,7 @@ javascript.javascriptGenerator.forBlock['Audio_systemInjectorGainChanged'] = (bl
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const gain = generator.getVariableName(block.getFieldValue('gain'));
 
-return `Audio.systemInjectorGainChanged.connect(_gain) => { 
+return `Audio.systemInjectorGainChanged.connect((_gain) => { 
   ${gain} = _gain;
 ${innerCode}
 });\n`;};
@@ -12537,7 +12537,7 @@ javascript.javascriptGenerator.forBlock['Audio_pushingToTalkOutputGainDesktopCha
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const gain = generator.getVariableName(block.getFieldValue('gain'));
 
-return `Audio.pushingToTalkOutputGainDesktopChanged.connect(_gain) => { 
+return `Audio.pushingToTalkOutputGainDesktopChanged.connect((_gain) => { 
   ${gain} = _gain;
 ${innerCode}
 });\n`;};
@@ -12985,7 +12985,7 @@ javascript.javascriptGenerator.forBlock['Controller_keyPressEvent'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.keyPressEvent.connect(_event) => { 
+return `Controller.keyPressEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13009,7 +13009,7 @@ javascript.javascriptGenerator.forBlock['Controller_keyReleaseEvent'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.keyReleaseEvent.connect(_event) => { 
+return `Controller.keyReleaseEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13033,7 +13033,7 @@ javascript.javascriptGenerator.forBlock['Controller_mouseMoveEvent'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.mouseMoveEvent.connect(_event) => { 
+return `Controller.mouseMoveEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13057,7 +13057,7 @@ javascript.javascriptGenerator.forBlock['Controller_mousePressEvent'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.mousePressEvent.connect(_event) => { 
+return `Controller.mousePressEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13081,7 +13081,7 @@ javascript.javascriptGenerator.forBlock['Controller_mouseDoublePressEvent'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.mouseDoublePressEvent.connect(_event) => { 
+return `Controller.mouseDoublePressEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13105,7 +13105,7 @@ javascript.javascriptGenerator.forBlock['Controller_mouseReleaseEvent'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.mouseReleaseEvent.connect(_event) => { 
+return `Controller.mouseReleaseEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13129,7 +13129,7 @@ javascript.javascriptGenerator.forBlock['Controller_touchBeginEvent'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.touchBeginEvent.connect(_event) => { 
+return `Controller.touchBeginEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13153,7 +13153,7 @@ javascript.javascriptGenerator.forBlock['Controller_touchEndEvent'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.touchEndEvent.connect(_event) => { 
+return `Controller.touchEndEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13177,7 +13177,7 @@ javascript.javascriptGenerator.forBlock['Controller_touchUpdateEvent'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.touchUpdateEvent.connect(_event) => { 
+return `Controller.touchUpdateEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13201,7 +13201,7 @@ javascript.javascriptGenerator.forBlock['Controller_wheelEvent'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Controller.wheelEvent.connect(_event) => { 
+return `Controller.wheelEvent.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -13522,7 +13522,7 @@ javascript.javascriptGenerator.forBlock['Desktop_uiFocusChanged'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isActive = generator.getVariableName(block.getFieldValue('isActive'));
 
-return `Desktop.uiFocusChanged.connect(_isActive) => { 
+return `Desktop.uiFocusChanged.connect((_isActive) => { 
   ${isActive} = _isActive;
 ${innerCode}
 });\n`;};
@@ -13634,7 +13634,7 @@ javascript.javascriptGenerator.forBlock['DialogsManager_addressBarShown'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const visible = generator.getVariableName(block.getFieldValue('visible'));
 
-return `DialogsManager.addressBarShown.connect(_visible) => { 
+return `DialogsManager.addressBarShown.connect((_visible) => { 
   ${visible} = _visible;
 ${innerCode}
 });\n`;};
@@ -14848,7 +14848,7 @@ javascript.javascriptGenerator.forBlock['HMD_showTabletChanged'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const showTablet = generator.getVariableName(block.getFieldValue('showTablet'));
 
-return `HMD.showTabletChanged.connect(_showTablet) => { 
+return `HMD.showTabletChanged.connect((_showTablet) => { 
   ${showTablet} = _showTablet;
 ${innerCode}
 });\n`;};
@@ -14872,7 +14872,7 @@ javascript.javascriptGenerator.forBlock['HMD_miniTabletEnabledChanged'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `HMD.miniTabletEnabledChanged.connect(_enabled) => { 
+return `HMD.miniTabletEnabledChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -14896,7 +14896,7 @@ javascript.javascriptGenerator.forBlock['HMD_awayStateWhenFocusLostInVRChanged']
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `HMD.awayStateWhenFocusLostInVRChanged.connect(_enabled) => { 
+return `HMD.awayStateWhenFocusLostInVRChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -15598,7 +15598,7 @@ javascript.javascriptGenerator.forBlock['Menu_menuItemEvent'] = (block, generato
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const menuItem = generator.getVariableName(block.getFieldValue('menuItem'));
 
-return `Menu.menuItemEvent.connect(_menuItem) => { 
+return `Menu.menuItemEvent.connect((_menuItem) => { 
   ${menuItem} = _menuItem;
 ${innerCode}
 });\n`;};
@@ -17341,7 +17341,7 @@ javascript.javascriptGenerator.forBlock['Selection_selectedItemsListChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const listName = generator.getVariableName(block.getFieldValue('listName'));
 
-return `Selection.selectedItemsListChanged.connect(_listName) => { 
+return `Selection.selectedItemsListChanged.connect((_listName) => { 
   ${listName} = _listName;
 ${innerCode}
 });\n`;};
@@ -19197,7 +19197,7 @@ javascript.javascriptGenerator.forBlock['Window_domainChanged'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const domainURL = generator.getVariableName(block.getFieldValue('domainURL'));
 
-return `Window.domainChanged.connect(_domainURL) => { 
+return `Window.domainChanged.connect((_domainURL) => { 
   ${domainURL} = _domainURL;
 ${innerCode}
 });\n`;};
@@ -19221,7 +19221,7 @@ javascript.javascriptGenerator.forBlock['Window_svoImportRequested'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const url = generator.getVariableName(block.getFieldValue('url'));
 
-return `Window.svoImportRequested.connect(_url) => { 
+return `Window.svoImportRequested.connect((_url) => { 
   ${url} = _url;
 ${innerCode}
 });\n`;};
@@ -19253,7 +19253,7 @@ javascript.javascriptGenerator.forBlock['Window_domainConnectionRefused'] = (blo
     const reasonCode = generator.getVariableName(block.getFieldValue('reasonCode'));
     const extraInfo = generator.getVariableName(block.getFieldValue('extraInfo'));
 
-return `Window.domainConnectionRefused.connect(_reasonMessage,_reasonCode,_extraInfo) => { 
+return `Window.domainConnectionRefused.connect((_reasonMessage,_reasonCode,_extraInfo) => { 
   ${reasonMessage} = _reasonMessage; 
   ${reasonCode} = _reasonCode; 
   ${extraInfo} = _extraInfo;
@@ -19279,7 +19279,7 @@ javascript.javascriptGenerator.forBlock['Window_redirectErrorStateChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isInErrorState = generator.getVariableName(block.getFieldValue('isInErrorState'));
 
-return `Window.redirectErrorStateChanged.connect(_isInErrorState) => { 
+return `Window.redirectErrorStateChanged.connect((_isInErrorState) => { 
   ${isInErrorState} = _isInErrorState;
 ${innerCode}
 });\n`;};
@@ -19303,7 +19303,7 @@ javascript.javascriptGenerator.forBlock['Window_interstitialModeChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const interstitialMode = generator.getVariableName(block.getFieldValue('interstitialMode'));
 
-return `Window.interstitialModeChanged.connect(_interstitialMode) => { 
+return `Window.interstitialModeChanged.connect((_interstitialMode) => { 
   ${interstitialMode} = _interstitialMode;
 ${innerCode}
 });\n`;};
@@ -19331,7 +19331,7 @@ javascript.javascriptGenerator.forBlock['Window_stillSnapshotTaken'] = (block, g
     const pathStillSnapshot = generator.getVariableName(block.getFieldValue('pathStillSnapshot'));
     const notify = generator.getVariableName(block.getFieldValue('notify'));
 
-return `Window.stillSnapshotTaken.connect(_pathStillSnapshot,_notify) => { 
+return `Window.stillSnapshotTaken.connect((_pathStillSnapshot,_notify) => { 
   ${pathStillSnapshot} = _pathStillSnapshot; 
   ${notify} = _notify;
 ${innerCode}
@@ -19360,7 +19360,7 @@ javascript.javascriptGenerator.forBlock['Window_snapshot360Taken'] = (block, gen
     const pathStillSnapshot = generator.getVariableName(block.getFieldValue('pathStillSnapshot'));
     const notify = generator.getVariableName(block.getFieldValue('notify'));
 
-return `Window.snapshot360Taken.connect(_pathStillSnapshot,_notify) => { 
+return `Window.snapshot360Taken.connect((_pathStillSnapshot,_notify) => { 
   ${pathStillSnapshot} = _pathStillSnapshot; 
   ${notify} = _notify;
 ${innerCode}
@@ -19389,7 +19389,7 @@ javascript.javascriptGenerator.forBlock['Window_snapshotShared'] = (block, gener
     const isError = generator.getVariableName(block.getFieldValue('isError'));
     const reply = generator.getVariableName(block.getFieldValue('reply'));
 
-return `Window.snapshotShared.connect(_isError,_reply) => { 
+return `Window.snapshotShared.connect((_isError,_reply) => { 
   ${isError} = _isError; 
   ${reply} = _reply;
 ${innerCode}
@@ -19414,7 +19414,7 @@ javascript.javascriptGenerator.forBlock['Window_processingGifStarted'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const pathStillSnapshot = generator.getVariableName(block.getFieldValue('pathStillSnapshot'));
 
-return `Window.processingGifStarted.connect(_pathStillSnapshot) => { 
+return `Window.processingGifStarted.connect((_pathStillSnapshot) => { 
   ${pathStillSnapshot} = _pathStillSnapshot;
 ${innerCode}
 });\n`;};
@@ -19438,7 +19438,7 @@ javascript.javascriptGenerator.forBlock['Window_processingGifCompleted'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const pathAnimatedSnapshot = generator.getVariableName(block.getFieldValue('pathAnimatedSnapshot'));
 
-return `Window.processingGifCompleted.connect(_pathAnimatedSnapshot) => { 
+return `Window.processingGifCompleted.connect((_pathAnimatedSnapshot) => { 
   ${pathAnimatedSnapshot} = _pathAnimatedSnapshot;
 ${innerCode}
 });\n`;};
@@ -19462,7 +19462,7 @@ javascript.javascriptGenerator.forBlock['Window_connectionAdded'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `Window.connectionAdded.connect(_message) => { 
+return `Window.connectionAdded.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -19486,7 +19486,7 @@ javascript.javascriptGenerator.forBlock['Window_connectionError'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `Window.connectionError.connect(_message) => { 
+return `Window.connectionError.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -19510,7 +19510,7 @@ javascript.javascriptGenerator.forBlock['Window_announcement'] = (block, generat
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `Window.announcement.connect(_message) => { 
+return `Window.announcement.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -19538,7 +19538,7 @@ javascript.javascriptGenerator.forBlock['Window_messageBoxClosed'] = (block, gen
     const id = generator.getVariableName(block.getFieldValue('id'));
     const button = generator.getVariableName(block.getFieldValue('button'));
 
-return `Window.messageBoxClosed.connect(_id,_button) => { 
+return `Window.messageBoxClosed.connect((_id,_button) => { 
   ${id} = _id; 
   ${button} = _button;
 ${innerCode}
@@ -19563,7 +19563,7 @@ javascript.javascriptGenerator.forBlock['Window_browseDirChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const directory = generator.getVariableName(block.getFieldValue('directory'));
 
-return `Window.browseDirChanged.connect(_directory) => { 
+return `Window.browseDirChanged.connect((_directory) => { 
   ${directory} = _directory;
 ${innerCode}
 });\n`;};
@@ -19587,7 +19587,7 @@ javascript.javascriptGenerator.forBlock['Window_assetsDirChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const asset = generator.getVariableName(block.getFieldValue('asset'));
 
-return `Window.assetsDirChanged.connect(_asset) => { 
+return `Window.assetsDirChanged.connect((_asset) => { 
   ${asset} = _asset;
 ${innerCode}
 });\n`;};
@@ -19611,7 +19611,7 @@ javascript.javascriptGenerator.forBlock['Window_saveFileChanged'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const filename = generator.getVariableName(block.getFieldValue('filename'));
 
-return `Window.saveFileChanged.connect(_filename) => { 
+return `Window.saveFileChanged.connect((_filename) => { 
   ${filename} = _filename;
 ${innerCode}
 });\n`;};
@@ -19635,7 +19635,7 @@ javascript.javascriptGenerator.forBlock['Window_browseChanged'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const filename = generator.getVariableName(block.getFieldValue('filename'));
 
-return `Window.browseChanged.connect(_filename) => { 
+return `Window.browseChanged.connect((_filename) => { 
   ${filename} = _filename;
 ${innerCode}
 });\n`;};
@@ -19659,7 +19659,7 @@ javascript.javascriptGenerator.forBlock['Window_promptTextChanged'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const text = generator.getVariableName(block.getFieldValue('text'));
 
-return `Window.promptTextChanged.connect(_text) => { 
+return `Window.promptTextChanged.connect((_text) => { 
   ${text} = _text;
 ${innerCode}
 });\n`;};
@@ -19683,7 +19683,7 @@ javascript.javascriptGenerator.forBlock['Window_geometryChanged'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const geometry = generator.getVariableName(block.getFieldValue('geometry'));
 
-return `Window.geometryChanged.connect(_geometry) => { 
+return `Window.geometryChanged.connect((_geometry) => { 
   ${geometry} = _geometry;
 ${innerCode}
 });\n`;};
@@ -19707,7 +19707,7 @@ javascript.javascriptGenerator.forBlock['Window_minimizedChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isMinimized = generator.getVariableName(block.getFieldValue('isMinimized'));
 
-return `Window.minimizedChanged.connect(_isMinimized) => { 
+return `Window.minimizedChanged.connect((_isMinimized) => { 
   ${isMinimized} = _isMinimized;
 ${innerCode}
 });\n`;};
@@ -19911,7 +19911,7 @@ javascript.javascriptGenerator.forBlock['AvatarInputs_showAudioToolsChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const show = generator.getVariableName(block.getFieldValue('show'));
 
-return `AvatarInputs.showAudioToolsChanged.connect(_show) => { 
+return `AvatarInputs.showAudioToolsChanged.connect((_show) => { 
   ${show} = _show;
 ${innerCode}
 });\n`;};
@@ -19935,7 +19935,7 @@ javascript.javascriptGenerator.forBlock['AvatarInputs_showBubbleToolsChanged'] =
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const show = generator.getVariableName(block.getFieldValue('show'));
 
-return `AvatarInputs.showBubbleToolsChanged.connect(_show) => { 
+return `AvatarInputs.showBubbleToolsChanged.connect((_show) => { 
   ${show} = _show;
 ${innerCode}
 });\n`;};
@@ -19959,7 +19959,7 @@ javascript.javascriptGenerator.forBlock['AvatarInputs_avatarEnteredIgnoreRadius'
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const avatarID = generator.getVariableName(block.getFieldValue('avatarID'));
 
-return `AvatarInputs.avatarEnteredIgnoreRadius.connect(_avatarID) => { 
+return `AvatarInputs.avatarEnteredIgnoreRadius.connect((_avatarID) => { 
   ${avatarID} = _avatarID;
 ${innerCode}
 });\n`;};
@@ -19983,7 +19983,7 @@ javascript.javascriptGenerator.forBlock['AvatarInputs_ignoreRadiusEnabledChanged
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `AvatarInputs.ignoreRadiusEnabledChanged.connect(_enabled) => { 
+return `AvatarInputs.ignoreRadiusEnabledChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -20521,7 +20521,7 @@ javascript.javascriptGenerator.forBlock['InteractiveWindow_fromQml'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `InteractiveWindow.fromQml.connect(_message) => { 
+return `InteractiveWindow.fromQml.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -20545,7 +20545,7 @@ javascript.javascriptGenerator.forBlock['InteractiveWindow_webEventReceived'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `InteractiveWindow.webEventReceived.connect(_message) => { 
+return `InteractiveWindow.webEventReceived.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -20569,7 +20569,7 @@ javascript.javascriptGenerator.forBlock['Snapshot_snapshotLocationSet'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const location = generator.getVariableName(block.getFieldValue('location'));
 
-return `Snapshot.snapshotLocationSet.connect(_location) => { 
+return `Snapshot.snapshotLocationSet.connect((_location) => { 
   ${location} = _location;
 ${innerCode}
 });\n`;};
@@ -26315,7 +26315,7 @@ javascript.javascriptGenerator.forBlock['Overlays_overlayDeleted'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const id = generator.getVariableName(block.getFieldValue('id'));
 
-return `Overlays.overlayDeleted.connect(_id) => { 
+return `Overlays.overlayDeleted.connect((_id) => { 
   ${id} = _id;
 ${innerCode}
 });\n`;};
@@ -26343,7 +26343,7 @@ javascript.javascriptGenerator.forBlock['Overlays_mousePressOnOverlay'] = (block
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.mousePressOnOverlay.connect(_id,_event) => { 
+return `Overlays.mousePressOnOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26372,7 +26372,7 @@ javascript.javascriptGenerator.forBlock['Overlays_mouseDoublePressOnOverlay'] = 
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.mouseDoublePressOnOverlay.connect(_id,_event) => { 
+return `Overlays.mouseDoublePressOnOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26401,7 +26401,7 @@ javascript.javascriptGenerator.forBlock['Overlays_mouseReleaseOnOverlay'] = (blo
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.mouseReleaseOnOverlay.connect(_id,_event) => { 
+return `Overlays.mouseReleaseOnOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26430,7 +26430,7 @@ javascript.javascriptGenerator.forBlock['Overlays_mouseMoveOnOverlay'] = (block,
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.mouseMoveOnOverlay.connect(_id,_event) => { 
+return `Overlays.mouseMoveOnOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26499,7 +26499,7 @@ javascript.javascriptGenerator.forBlock['Overlays_hoverEnterOverlay'] = (block, 
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.hoverEnterOverlay.connect(_id,_event) => { 
+return `Overlays.hoverEnterOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26528,7 +26528,7 @@ javascript.javascriptGenerator.forBlock['Overlays_hoverOverOverlay'] = (block, g
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.hoverOverOverlay.connect(_id,_event) => { 
+return `Overlays.hoverOverOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26557,7 +26557,7 @@ javascript.javascriptGenerator.forBlock['Overlays_hoverLeaveOverlay'] = (block, 
     const id = generator.getVariableName(block.getFieldValue('id'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Overlays.hoverLeaveOverlay.connect(_id,_event) => { 
+return `Overlays.hoverLeaveOverlay.connect((_id,_event) => { 
   ${id} = _id; 
   ${event} = _event;
 ${innerCode}
@@ -26945,7 +26945,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_lossRateCha
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const lossRate = generator.getVariableName(block.getFieldValue('lossRate'));
 
-return `AudioStats.AudioStreamStats.lossRateChanged.connect(_lossRate) => { 
+return `AudioStats.AudioStreamStats.lossRateChanged.connect((_lossRate) => { 
   ${lossRate} = _lossRate;
 ${innerCode}
 });\n`;};
@@ -26969,7 +26969,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_lossCountCh
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const lossCount = generator.getVariableName(block.getFieldValue('lossCount'));
 
-return `AudioStats.AudioStreamStats.lossCountChanged.connect(_lossCount) => { 
+return `AudioStats.AudioStreamStats.lossCountChanged.connect((_lossCount) => { 
   ${lossCount} = _lossCount;
 ${innerCode}
 });\n`;};
@@ -26993,7 +26993,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_lossRateWin
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const lossRateWindow = generator.getVariableName(block.getFieldValue('lossRateWindow'));
 
-return `AudioStats.AudioStreamStats.lossRateWindowChanged.connect(_lossRateWindow) => { 
+return `AudioStats.AudioStreamStats.lossRateWindowChanged.connect((_lossRateWindow) => { 
   ${lossRateWindow} = _lossRateWindow;
 ${innerCode}
 });\n`;};
@@ -27017,7 +27017,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_lossCountWi
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const lossCountWindow = generator.getVariableName(block.getFieldValue('lossCountWindow'));
 
-return `AudioStats.AudioStreamStats.lossCountWindowChanged.connect(_lossCountWindow) => { 
+return `AudioStats.AudioStreamStats.lossCountWindowChanged.connect((_lossCountWindow) => { 
   ${lossCountWindow} = _lossCountWindow;
 ${innerCode}
 });\n`;};
@@ -27041,7 +27041,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_framesDesir
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const framesDesired = generator.getVariableName(block.getFieldValue('framesDesired'));
 
-return `AudioStats.AudioStreamStats.framesDesiredChanged.connect(_framesDesired) => { 
+return `AudioStats.AudioStreamStats.framesDesiredChanged.connect((_framesDesired) => { 
   ${framesDesired} = _framesDesired;
 ${innerCode}
 });\n`;};
@@ -27065,7 +27065,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_framesAvail
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const framesAvailable = generator.getVariableName(block.getFieldValue('framesAvailable'));
 
-return `AudioStats.AudioStreamStats.framesAvailableChanged.connect(_framesAvailable) => { 
+return `AudioStats.AudioStreamStats.framesAvailableChanged.connect((_framesAvailable) => { 
   ${framesAvailable} = _framesAvailable;
 ${innerCode}
 });\n`;};
@@ -27089,7 +27089,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_framesAvail
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const framesAvailableAvg = generator.getVariableName(block.getFieldValue('framesAvailableAvg'));
 
-return `AudioStats.AudioStreamStats.framesAvailableAvgChanged.connect(_framesAvailableAvg) => { 
+return `AudioStats.AudioStreamStats.framesAvailableAvgChanged.connect((_framesAvailableAvg) => { 
   ${framesAvailableAvg} = _framesAvailableAvg;
 ${innerCode}
 });\n`;};
@@ -27113,7 +27113,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_unplayedMsM
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const unplayedMsMax = generator.getVariableName(block.getFieldValue('unplayedMsMax'));
 
-return `AudioStats.AudioStreamStats.unplayedMsMaxChanged.connect(_unplayedMsMax) => { 
+return `AudioStats.AudioStreamStats.unplayedMsMaxChanged.connect((_unplayedMsMax) => { 
   ${unplayedMsMax} = _unplayedMsMax;
 ${innerCode}
 });\n`;};
@@ -27137,7 +27137,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_starveCount
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const starveCount = generator.getVariableName(block.getFieldValue('starveCount'));
 
-return `AudioStats.AudioStreamStats.starveCountChanged.connect(_starveCount) => { 
+return `AudioStats.AudioStreamStats.starveCountChanged.connect((_starveCount) => { 
   ${starveCount} = _starveCount;
 ${innerCode}
 });\n`;};
@@ -27161,7 +27161,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_lastStarveD
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const lastStarveDurationCount = generator.getVariableName(block.getFieldValue('lastStarveDurationCount'));
 
-return `AudioStats.AudioStreamStats.lastStarveDurationCountChanged.connect(_lastStarveDurationCount) => { 
+return `AudioStats.AudioStreamStats.lastStarveDurationCountChanged.connect((_lastStarveDurationCount) => { 
   ${lastStarveDurationCount} = _lastStarveDurationCount;
 ${innerCode}
 });\n`;};
@@ -27185,7 +27185,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_dropCountCh
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const dropCount = generator.getVariableName(block.getFieldValue('dropCount'));
 
-return `AudioStats.AudioStreamStats.dropCountChanged.connect(_dropCount) => { 
+return `AudioStats.AudioStreamStats.dropCountChanged.connect((_dropCount) => { 
   ${dropCount} = _dropCount;
 ${innerCode}
 });\n`;};
@@ -27209,7 +27209,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_overflowCou
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const overflowCount = generator.getVariableName(block.getFieldValue('overflowCount'));
 
-return `AudioStats.AudioStreamStats.overflowCountChanged.connect(_overflowCount) => { 
+return `AudioStats.AudioStreamStats.overflowCountChanged.connect((_overflowCount) => { 
   ${overflowCount} = _overflowCount;
 ${innerCode}
 });\n`;};
@@ -27233,7 +27233,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_timegapMsMa
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const timegapMsMax = generator.getVariableName(block.getFieldValue('timegapMsMax'));
 
-return `AudioStats.AudioStreamStats.timegapMsMaxChanged.connect(_timegapMsMax) => { 
+return `AudioStats.AudioStreamStats.timegapMsMaxChanged.connect((_timegapMsMax) => { 
   ${timegapMsMax} = _timegapMsMax;
 ${innerCode}
 });\n`;};
@@ -27257,7 +27257,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_timegapMsAv
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const timegapMsAvg = generator.getVariableName(block.getFieldValue('timegapMsAvg'));
 
-return `AudioStats.AudioStreamStats.timegapMsAvgChanged.connect(_timegapMsAvg) => { 
+return `AudioStats.AudioStreamStats.timegapMsAvgChanged.connect((_timegapMsAvg) => { 
   ${timegapMsAvg} = _timegapMsAvg;
 ${innerCode}
 });\n`;};
@@ -27281,7 +27281,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_timegapMsMa
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const timegapMsMaxWindow = generator.getVariableName(block.getFieldValue('timegapMsMaxWindow'));
 
-return `AudioStats.AudioStreamStats.timegapMsMaxWindowChanged.connect(_timegapMsMaxWindow) => { 
+return `AudioStats.AudioStreamStats.timegapMsMaxWindowChanged.connect((_timegapMsMaxWindow) => { 
   ${timegapMsMaxWindow} = _timegapMsMaxWindow;
 ${innerCode}
 });\n`;};
@@ -27305,7 +27305,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_AudioStreamStats_timegapMsAv
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const timegapMsAvgWindow = generator.getVariableName(block.getFieldValue('timegapMsAvgWindow'));
 
-return `AudioStats.AudioStreamStats.timegapMsAvgWindowChanged.connect(_timegapMsAvgWindow) => { 
+return `AudioStats.AudioStreamStats.timegapMsAvgWindowChanged.connect((_timegapMsAvgWindow) => { 
   ${timegapMsAvgWindow} = _timegapMsAvgWindow;
 ${innerCode}
 });\n`;};
@@ -27469,7 +27469,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_pingMsChanged'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const pingMs = generator.getVariableName(block.getFieldValue('pingMs'));
 
-return `AudioStats.pingMsChanged.connect(_pingMs) => { 
+return `AudioStats.pingMsChanged.connect((_pingMs) => { 
   ${pingMs} = _pingMs;
 ${innerCode}
 });\n`;};
@@ -27493,7 +27493,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_inputReadMsMaxChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const inputReadMsMax = generator.getVariableName(block.getFieldValue('inputReadMsMax'));
 
-return `AudioStats.inputReadMsMaxChanged.connect(_inputReadMsMax) => { 
+return `AudioStats.inputReadMsMaxChanged.connect((_inputReadMsMax) => { 
   ${inputReadMsMax} = _inputReadMsMax;
 ${innerCode}
 });\n`;};
@@ -27517,7 +27517,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_inputUnplayedMsMaxChanged'] 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const inputUnplayedMsMax = generator.getVariableName(block.getFieldValue('inputUnplayedMsMax'));
 
-return `AudioStats.inputUnplayedMsMaxChanged.connect(_inputUnplayedMsMax) => { 
+return `AudioStats.inputUnplayedMsMaxChanged.connect((_inputUnplayedMsMax) => { 
   ${inputUnplayedMsMax} = _inputUnplayedMsMax;
 ${innerCode}
 });\n`;};
@@ -27541,7 +27541,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_outputUnplayedMsMaxChanged']
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const outputUnplayedMsMax = generator.getVariableName(block.getFieldValue('outputUnplayedMsMax'));
 
-return `AudioStats.outputUnplayedMsMaxChanged.connect(_outputUnplayedMsMax) => { 
+return `AudioStats.outputUnplayedMsMaxChanged.connect((_outputUnplayedMsMax) => { 
   ${outputUnplayedMsMax} = _outputUnplayedMsMax;
 ${innerCode}
 });\n`;};
@@ -27565,7 +27565,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_sentTimegapMsMaxChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sentTimegapMsMax = generator.getVariableName(block.getFieldValue('sentTimegapMsMax'));
 
-return `AudioStats.sentTimegapMsMaxChanged.connect(_sentTimegapMsMax) => { 
+return `AudioStats.sentTimegapMsMaxChanged.connect((_sentTimegapMsMax) => { 
   ${sentTimegapMsMax} = _sentTimegapMsMax;
 ${innerCode}
 });\n`;};
@@ -27589,7 +27589,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_sentTimegapMsAvgChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sentTimegapMsAvg = generator.getVariableName(block.getFieldValue('sentTimegapMsAvg'));
 
-return `AudioStats.sentTimegapMsAvgChanged.connect(_sentTimegapMsAvg) => { 
+return `AudioStats.sentTimegapMsAvgChanged.connect((_sentTimegapMsAvg) => { 
   ${sentTimegapMsAvg} = _sentTimegapMsAvg;
 ${innerCode}
 });\n`;};
@@ -27613,7 +27613,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_sentTimegapMsMaxWindowChange
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sentTimegapMsMaxWindow = generator.getVariableName(block.getFieldValue('sentTimegapMsMaxWindow'));
 
-return `AudioStats.sentTimegapMsMaxWindowChanged.connect(_sentTimegapMsMaxWindow) => { 
+return `AudioStats.sentTimegapMsMaxWindowChanged.connect((_sentTimegapMsMaxWindow) => { 
   ${sentTimegapMsMaxWindow} = _sentTimegapMsMaxWindow;
 ${innerCode}
 });\n`;};
@@ -27637,7 +27637,7 @@ javascript.javascriptGenerator.forBlock['AudioStats_sentTimegapMsAvgWindowChange
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sentTimegapMsAvgWindow = generator.getVariableName(block.getFieldValue('sentTimegapMsAvgWindow'));
 
-return `AudioStats.sentTimegapMsAvgWindowChanged.connect(_sentTimegapMsAvgWindow) => { 
+return `AudioStats.sentTimegapMsAvgWindowChanged.connect((_sentTimegapMsAvgWindow) => { 
   ${sentTimegapMsAvgWindow} = _sentTimegapMsAvgWindow;
 ${innerCode}
 });\n`;};
@@ -28396,7 +28396,7 @@ javascript.javascriptGenerator.forBlock['Audio_inputReceived'] = (block, generat
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const inputSamples = generator.getVariableName(block.getFieldValue('inputSamples'));
 
-return `Audio.inputReceived.connect(_inputSamples) => { 
+return `Audio.inputReceived.connect((_inputSamples) => { 
   ${inputSamples} = _inputSamples;
 ${innerCode}
 });\n`;};
@@ -28420,7 +28420,7 @@ javascript.javascriptGenerator.forBlock['Audio_isStereoInputChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isStereo = generator.getVariableName(block.getFieldValue('isStereo'));
 
-return `Audio.isStereoInputChanged.connect(_isStereo) => { 
+return `Audio.isStereoInputChanged.connect((_isStereo) => { 
   ${isStereo} = _isStereo;
 ${innerCode}
 });\n`;};
@@ -29872,7 +29872,7 @@ javascript.javascriptGenerator.forBlock['Avatar_lookAtSnappingChanged'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `Avatar.lookAtSnappingChanged.connect(_enabled) => { 
+return `Avatar.lookAtSnappingChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -30112,7 +30112,7 @@ javascript.javascriptGenerator.forBlock['AvatarList_avatarAddedEvent'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sessionUUID = generator.getVariableName(block.getFieldValue('sessionUUID'));
 
-return `AvatarList.avatarAddedEvent.connect(_sessionUUID) => { 
+return `AvatarList.avatarAddedEvent.connect((_sessionUUID) => { 
   ${sessionUUID} = _sessionUUID;
 ${innerCode}
 });\n`;};
@@ -30136,7 +30136,7 @@ javascript.javascriptGenerator.forBlock['AvatarList_avatarRemovedEvent'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sessionUUID = generator.getVariableName(block.getFieldValue('sessionUUID'));
 
-return `AvatarList.avatarRemovedEvent.connect(_sessionUUID) => { 
+return `AvatarList.avatarRemovedEvent.connect((_sessionUUID) => { 
   ${sessionUUID} = _sessionUUID;
 ${innerCode}
 });\n`;};
@@ -30164,7 +30164,7 @@ javascript.javascriptGenerator.forBlock['AvatarList_avatarSessionChangedEvent'] 
     const newSessionUUID = generator.getVariableName(block.getFieldValue('newSessionUUID'));
     const oldSessionUUID = generator.getVariableName(block.getFieldValue('oldSessionUUID'));
 
-return `AvatarList.avatarSessionChangedEvent.connect(_newSessionUUID,_oldSessionUUID) => { 
+return `AvatarList.avatarSessionChangedEvent.connect((_newSessionUUID,_oldSessionUUID) => { 
   ${newSessionUUID} = _newSessionUUID; 
   ${oldSessionUUID} = _oldSessionUUID;
 ${innerCode}
@@ -30501,7 +30501,7 @@ javascript.javascriptGenerator.forBlock['ScriptAvatar_lookAtSnappingChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `ScriptAvatar.lookAtSnappingChanged.connect(_enabled) => { 
+return `ScriptAvatar.lookAtSnappingChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -32708,7 +32708,7 @@ javascript.javascriptGenerator.forBlock['Controller_actionEvent'] = (block, gene
     const actionID = generator.getVariableName(block.getFieldValue('actionID'));
     const value = generator.getVariableName(block.getFieldValue('value'));
 
-return `Controller.actionEvent.connect(_actionID,_value) => { 
+return `Controller.actionEvent.connect((_actionID,_value) => { 
   ${actionID} = _actionID; 
   ${value} = _value;
 ${innerCode}
@@ -32737,7 +32737,7 @@ javascript.javascriptGenerator.forBlock['Controller_inputEvent'] = (block, gener
     const action = generator.getVariableName(block.getFieldValue('action'));
     const value = generator.getVariableName(block.getFieldValue('value'));
 
-return `Controller.inputEvent.connect(_action,_value) => { 
+return `Controller.inputEvent.connect((_action,_value) => { 
   ${action} = _action; 
   ${value} = _value;
 ${innerCode}
@@ -32786,7 +32786,7 @@ javascript.javascriptGenerator.forBlock['Controller_inputDeviceRunningChanged'] 
     const deviceName = generator.getVariableName(block.getFieldValue('deviceName'));
     const isRunning = generator.getVariableName(block.getFieldValue('isRunning'));
 
-return `Controller.inputDeviceRunningChanged.connect(_deviceName,_isRunning) => { 
+return `Controller.inputDeviceRunningChanged.connect((_deviceName,_isRunning) => { 
   ${deviceName} = _deviceName; 
   ${isRunning} = _isRunning;
 ${innerCode}
@@ -33654,7 +33654,7 @@ javascript.javascriptGenerator.forBlock['HMD_displayModeChanged'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isHMDMode = generator.getVariableName(block.getFieldValue('isHMDMode'));
 
-return `HMD.displayModeChanged.connect(_isHMDMode) => { 
+return `HMD.displayModeChanged.connect((_isHMDMode) => { 
   ${isHMDMode} = _isHMDMode;
 ${innerCode}
 });\n`;};
@@ -38676,7 +38676,7 @@ javascript.javascriptGenerator.forBlock['Entities_collisionWithEntity'] = (block
     const idB = generator.getVariableName(block.getFieldValue('idB'));
     const collision = generator.getVariableName(block.getFieldValue('collision'));
 
-return `Entities.collisionWithEntity.connect(_idA,_idB,_collision) => { 
+return `Entities.collisionWithEntity.connect((_idA,_idB,_collision) => { 
   ${idA} = _idA; 
   ${idB} = _idB; 
   ${collision} = _collision;
@@ -38702,7 +38702,7 @@ javascript.javascriptGenerator.forBlock['Entities_canAdjustLocksChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canAdjustLocks = generator.getVariableName(block.getFieldValue('canAdjustLocks'));
 
-return `Entities.canAdjustLocksChanged.connect(_canAdjustLocks) => { 
+return `Entities.canAdjustLocksChanged.connect((_canAdjustLocks) => { 
   ${canAdjustLocks} = _canAdjustLocks;
 ${innerCode}
 });\n`;};
@@ -38726,7 +38726,7 @@ javascript.javascriptGenerator.forBlock['Entities_canRezChanged'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canRez = generator.getVariableName(block.getFieldValue('canRez'));
 
-return `Entities.canRezChanged.connect(_canRez) => { 
+return `Entities.canRezChanged.connect((_canRez) => { 
   ${canRez} = _canRez;
 ${innerCode}
 });\n`;};
@@ -38750,7 +38750,7 @@ javascript.javascriptGenerator.forBlock['Entities_canRezTmpChanged'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canRezTmp = generator.getVariableName(block.getFieldValue('canRezTmp'));
 
-return `Entities.canRezTmpChanged.connect(_canRezTmp) => { 
+return `Entities.canRezTmpChanged.connect((_canRezTmp) => { 
   ${canRezTmp} = _canRezTmp;
 ${innerCode}
 });\n`;};
@@ -38774,7 +38774,7 @@ javascript.javascriptGenerator.forBlock['Entities_canWriteAssetsChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canWriteAssets = generator.getVariableName(block.getFieldValue('canWriteAssets'));
 
-return `Entities.canWriteAssetsChanged.connect(_canWriteAssets) => { 
+return `Entities.canWriteAssetsChanged.connect((_canWriteAssets) => { 
   ${canWriteAssets} = _canWriteAssets;
 ${innerCode}
 });\n`;};
@@ -38798,7 +38798,7 @@ javascript.javascriptGenerator.forBlock['Entities_canGetAndSetPrivateUserDataCha
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canGetAndSetPrivateUserData = generator.getVariableName(block.getFieldValue('canGetAndSetPrivateUserData'));
 
-return `Entities.canGetAndSetPrivateUserDataChanged.connect(_canGetAndSetPrivateUserData) => { 
+return `Entities.canGetAndSetPrivateUserDataChanged.connect((_canGetAndSetPrivateUserData) => { 
   ${canGetAndSetPrivateUserData} = _canGetAndSetPrivateUserData;
 ${innerCode}
 });\n`;};
@@ -38822,7 +38822,7 @@ javascript.javascriptGenerator.forBlock['Entities_canRezAvatarEntitiesChanged'] 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canRezAvatarEntities = generator.getVariableName(block.getFieldValue('canRezAvatarEntities'));
 
-return `Entities.canRezAvatarEntitiesChanged.connect(_canRezAvatarEntities) => { 
+return `Entities.canRezAvatarEntitiesChanged.connect((_canRezAvatarEntities) => { 
   ${canRezAvatarEntities} = _canRezAvatarEntities;
 ${innerCode}
 });\n`;};
@@ -38846,7 +38846,7 @@ javascript.javascriptGenerator.forBlock['Entities_canViewAssetURLsChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canViewAssetURLs = generator.getVariableName(block.getFieldValue('canViewAssetURLs'));
 
-return `Entities.canViewAssetURLsChanged.connect(_canViewAssetURLs) => { 
+return `Entities.canViewAssetURLsChanged.connect((_canViewAssetURLs) => { 
   ${canViewAssetURLs} = _canViewAssetURLs;
 ${innerCode}
 });\n`;};
@@ -38874,7 +38874,7 @@ javascript.javascriptGenerator.forBlock['Entities_mousePressOnEntity'] = (block,
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mousePressOnEntity.connect(_entityID,_event) => { 
+return `Entities.mousePressOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -38903,7 +38903,7 @@ javascript.javascriptGenerator.forBlock['Entities_mouseDoublePressOnEntity'] = (
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mouseDoublePressOnEntity.connect(_entityID,_event) => { 
+return `Entities.mouseDoublePressOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -38932,7 +38932,7 @@ javascript.javascriptGenerator.forBlock['Entities_mouseMoveOnEntity'] = (block, 
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mouseMoveOnEntity.connect(_entityID,_event) => { 
+return `Entities.mouseMoveOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -38961,7 +38961,7 @@ javascript.javascriptGenerator.forBlock['Entities_mouseReleaseOnEntity'] = (bloc
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mouseReleaseOnEntity.connect(_entityID,_event) => { 
+return `Entities.mouseReleaseOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -38986,7 +38986,7 @@ javascript.javascriptGenerator.forBlock['Entities_mousePressOffEntity'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mousePressOffEntity.connect(_event) => { 
+return `Entities.mousePressOffEntity.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -39010,7 +39010,7 @@ javascript.javascriptGenerator.forBlock['Entities_mouseDoublePressOffEntity'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.mouseDoublePressOffEntity.connect(_event) => { 
+return `Entities.mouseDoublePressOffEntity.connect((_event) => { 
   ${event} = _event;
 ${innerCode}
 });\n`;};
@@ -39038,7 +39038,7 @@ javascript.javascriptGenerator.forBlock['Entities_clickDownOnEntity'] = (block, 
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.clickDownOnEntity.connect(_entityID,_event) => { 
+return `Entities.clickDownOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39067,7 +39067,7 @@ javascript.javascriptGenerator.forBlock['Entities_holdingClickOnEntity'] = (bloc
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.holdingClickOnEntity.connect(_entityID,_event) => { 
+return `Entities.holdingClickOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39096,7 +39096,7 @@ javascript.javascriptGenerator.forBlock['Entities_clickReleaseOnEntity'] = (bloc
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.clickReleaseOnEntity.connect(_entityID,_event) => { 
+return `Entities.clickReleaseOnEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39125,7 +39125,7 @@ javascript.javascriptGenerator.forBlock['Entities_hoverEnterEntity'] = (block, g
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.hoverEnterEntity.connect(_entityID,_event) => { 
+return `Entities.hoverEnterEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39154,7 +39154,7 @@ javascript.javascriptGenerator.forBlock['Entities_hoverOverEntity'] = (block, ge
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.hoverOverEntity.connect(_entityID,_event) => { 
+return `Entities.hoverOverEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39183,7 +39183,7 @@ javascript.javascriptGenerator.forBlock['Entities_hoverLeaveEntity'] = (block, g
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const event = generator.getVariableName(block.getFieldValue('event'));
 
-return `Entities.hoverLeaveEntity.connect(_entityID,_event) => { 
+return `Entities.hoverLeaveEntity.connect((_entityID,_event) => { 
   ${entityID} = _entityID; 
   ${event} = _event;
 ${innerCode}
@@ -39208,7 +39208,7 @@ javascript.javascriptGenerator.forBlock['Entities_enterEntity'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.enterEntity.connect(_entityID) => { 
+return `Entities.enterEntity.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39232,7 +39232,7 @@ javascript.javascriptGenerator.forBlock['Entities_leaveEntity'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.leaveEntity.connect(_entityID) => { 
+return `Entities.leaveEntity.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39256,7 +39256,7 @@ javascript.javascriptGenerator.forBlock['Entities_deletingEntity'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.deletingEntity.connect(_entityID) => { 
+return `Entities.deletingEntity.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39280,7 +39280,7 @@ javascript.javascriptGenerator.forBlock['Entities_addingEntity'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.addingEntity.connect(_entityID) => { 
+return `Entities.addingEntity.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39304,7 +39304,7 @@ javascript.javascriptGenerator.forBlock['Entities_deletingWearable'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.deletingWearable.connect(_entityID) => { 
+return `Entities.deletingWearable.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39328,7 +39328,7 @@ javascript.javascriptGenerator.forBlock['Entities_addingWearable'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.addingWearable.connect(_entityID) => { 
+return `Entities.addingWearable.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -39376,7 +39376,7 @@ javascript.javascriptGenerator.forBlock['Entities_webEventReceived'] = (block, g
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `Entities.webEventReceived.connect(_entityID,_message) => { 
+return `Entities.webEventReceived.connect((_entityID,_message) => { 
   ${entityID} = _entityID; 
   ${message} = _message;
 ${innerCode}
@@ -41625,7 +41625,7 @@ javascript.javascriptGenerator.forBlock['Midi_midiMessage'] = (block, generator)
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `Midi.midiMessage.connect(_message) => { 
+return `Midi.midiMessage.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -42694,7 +42694,7 @@ javascript.javascriptGenerator.forBlock['location_possibleDomainChangeRequired']
     const domainURL = generator.getVariableName(block.getFieldValue('domainURL'));
     const domainID = generator.getVariableName(block.getFieldValue('domainID'));
 
-return `location.possibleDomainChangeRequired.connect(_domainURL,_domainID) => { 
+return `location.possibleDomainChangeRequired.connect((_domainURL,_domainID) => { 
   ${domainURL} = _domainURL; 
   ${domainID} = _domainID;
 ${innerCode}
@@ -42723,7 +42723,7 @@ javascript.javascriptGenerator.forBlock['location_possibleDomainChangeRequiredVi
     const iceServerHostName = generator.getVariableName(block.getFieldValue('iceServerHostName'));
     const domainID = generator.getVariableName(block.getFieldValue('domainID'));
 
-return `location.possibleDomainChangeRequiredViaICEForID.connect(_iceServerHostName,_domainID) => { 
+return `location.possibleDomainChangeRequiredViaICEForID.connect((_iceServerHostName,_domainID) => { 
   ${iceServerHostName} = _iceServerHostName; 
   ${domainID} = _domainID;
 ${innerCode}
@@ -42760,7 +42760,7 @@ javascript.javascriptGenerator.forBlock['location_locationChangeRequired'] = (bl
     const orientation = generator.getVariableName(block.getFieldValue('orientation'));
     const shouldFaceLocation = generator.getVariableName(block.getFieldValue('shouldFaceLocation'));
 
-return `location.locationChangeRequired.connect(_position,_hasOrientationChange,_orientation,_shouldFaceLocation) => { 
+return `location.locationChangeRequired.connect((_position,_hasOrientationChange,_orientation,_shouldFaceLocation) => { 
   ${position} = _position; 
   ${hasOrientationChange} = _hasOrientationChange; 
   ${orientation} = _orientation; 
@@ -42787,7 +42787,7 @@ javascript.javascriptGenerator.forBlock['location_pathChangeRequired'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const path = generator.getVariableName(block.getFieldValue('path'));
 
-return `location.pathChangeRequired.connect(_path) => { 
+return `location.pathChangeRequired.connect((_path) => { 
   ${path} = _path;
 ${innerCode}
 });\n`;};
@@ -42811,7 +42811,7 @@ javascript.javascriptGenerator.forBlock['location_hostChanged'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const hostname = generator.getVariableName(block.getFieldValue('hostname'));
 
-return `location.hostChanged.connect(_hostname) => { 
+return `location.hostChanged.connect((_hostname) => { 
   ${hostname} = _hostname;
 ${innerCode}
 });\n`;};
@@ -42835,7 +42835,7 @@ javascript.javascriptGenerator.forBlock['location_goBackPossible'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isPossible = generator.getVariableName(block.getFieldValue('isPossible'));
 
-return `location.goBackPossible.connect(_isPossible) => { 
+return `location.goBackPossible.connect((_isPossible) => { 
   ${isPossible} = _isPossible;
 ${innerCode}
 });\n`;};
@@ -42859,7 +42859,7 @@ javascript.javascriptGenerator.forBlock['location_goForwardPossible'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isPossible = generator.getVariableName(block.getFieldValue('isPossible'));
 
-return `location.goForwardPossible.connect(_isPossible) => { 
+return `location.goForwardPossible.connect((_isPossible) => { 
   ${isPossible} = _isPossible;
 ${innerCode}
 });\n`;};
@@ -43482,7 +43482,7 @@ javascript.javascriptGenerator.forBlock['Messages_messageReceived'] = (block, ge
     const senderID = generator.getVariableName(block.getFieldValue('senderID'));
     const localOnly = generator.getVariableName(block.getFieldValue('localOnly'));
 
-return `Messages.messageReceived.connect(_channel,_message,_senderID,_localOnly) => { 
+return `Messages.messageReceived.connect((_channel,_message,_senderID,_localOnly) => { 
   ${channel} = _channel; 
   ${message} = _message; 
   ${senderID} = _senderID; 
@@ -43521,7 +43521,7 @@ javascript.javascriptGenerator.forBlock['Messages_dataReceived'] = (block, gener
     const senderID = generator.getVariableName(block.getFieldValue('senderID'));
     const localOnly = generator.getVariableName(block.getFieldValue('localOnly'));
 
-return `Messages.dataReceived.connect(_channel,_data,_senderID,_localOnly) => { 
+return `Messages.dataReceived.connect((_channel,_data,_senderID,_localOnly) => { 
   ${channel} = _channel; 
   ${data} = _data; 
   ${senderID} = _senderID; 
@@ -43636,7 +43636,7 @@ javascript.javascriptGenerator.forBlock['ResourceObject#progressChanged'] = (blo
     const bytesReceived = generator.getVariableName(block.getFieldValue('bytesReceived'));
     const bytesTotal = generator.getVariableName(block.getFieldValue('bytesTotal'));
 
-return `ResourceObject#progressChanged.connect(_bytesReceived,_bytesTotal) => { 
+return `ResourceObject#progressChanged.connect((_bytesReceived,_bytesTotal) => { 
   ${bytesReceived} = _bytesReceived; 
   ${bytesTotal} = _bytesTotal;
 ${innerCode}
@@ -43661,7 +43661,7 @@ javascript.javascriptGenerator.forBlock['ResourceObject#stateChanged'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const state = generator.getVariableName(block.getFieldValue('state'));
 
-return `ResourceObject#stateChanged.connect(_state) => { 
+return `ResourceObject#stateChanged.connect((_state) => { 
   ${state} = _state;
 ${innerCode}
 });\n`;};
@@ -49294,7 +49294,7 @@ javascript.javascriptGenerator.forBlock['Scene_shouldRenderAvatarsChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const shouldRenderAvatars = generator.getVariableName(block.getFieldValue('shouldRenderAvatars'));
 
-return `Scene.shouldRenderAvatarsChanged.connect(_shouldRenderAvatars) => { 
+return `Scene.shouldRenderAvatarsChanged.connect((_shouldRenderAvatars) => { 
   ${shouldRenderAvatars} = _shouldRenderAvatars;
 ${innerCode}
 });\n`;};
@@ -49318,7 +49318,7 @@ javascript.javascriptGenerator.forBlock['Scene_shouldRenderEntitiesChanged'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const shouldRenderEntities = generator.getVariableName(block.getFieldValue('shouldRenderEntities'));
 
-return `Scene.shouldRenderEntitiesChanged.connect(_shouldRenderEntities) => { 
+return `Scene.shouldRenderEntitiesChanged.connect((_shouldRenderEntities) => { 
   ${shouldRenderEntities} = _shouldRenderEntities;
 ${innerCode}
 });\n`;};
@@ -49694,7 +49694,7 @@ javascript.javascriptGenerator.forBlock['ScriptDiscoveryService_scriptLoadError'
     const url = generator.getVariableName(block.getFieldValue('url'));
     const error = generator.getVariableName(block.getFieldValue('error'));
 
-return `ScriptDiscoveryService.scriptLoadError.connect(_url,_error) => { 
+return `ScriptDiscoveryService.scriptLoadError.connect((_url,_error) => { 
   ${url} = _url; 
   ${error} = _error;
 ${innerCode}
@@ -49723,7 +49723,7 @@ javascript.javascriptGenerator.forBlock['ScriptDiscoveryService_printedMessage']
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `ScriptDiscoveryService.printedMessage.connect(_message,_scriptName) => { 
+return `ScriptDiscoveryService.printedMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -49752,7 +49752,7 @@ javascript.javascriptGenerator.forBlock['ScriptDiscoveryService_errorMessage'] =
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `ScriptDiscoveryService.errorMessage.connect(_message,_scriptName) => { 
+return `ScriptDiscoveryService.errorMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -49781,7 +49781,7 @@ javascript.javascriptGenerator.forBlock['ScriptDiscoveryService_warningMessage']
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `ScriptDiscoveryService.warningMessage.connect(_message,_scriptName) => { 
+return `ScriptDiscoveryService.warningMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -49810,7 +49810,7 @@ javascript.javascriptGenerator.forBlock['ScriptDiscoveryService_infoMessage'] = 
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `ScriptDiscoveryService.infoMessage.connect(_message,_scriptName) => { 
+return `ScriptDiscoveryService.infoMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -49851,7 +49851,7 @@ javascript.javascriptGenerator.forBlock['Script_printedEntityMessage'] = (block,
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const isServerScript = generator.getVariableName(block.getFieldValue('isServerScript'));
 
-return `Script.printedEntityMessage.connect(_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
+return `Script.printedEntityMessage.connect((_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
   ${message} = _message; 
   ${fileName} = _fileName; 
   ${lineNumber} = _lineNumber; 
@@ -49895,7 +49895,7 @@ javascript.javascriptGenerator.forBlock['Script_errorEntityMessage'] = (block, g
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const isServerScript = generator.getVariableName(block.getFieldValue('isServerScript'));
 
-return `Script.errorEntityMessage.connect(_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
+return `Script.errorEntityMessage.connect((_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
   ${message} = _message; 
   ${fileName} = _fileName; 
   ${lineNumber} = _lineNumber; 
@@ -49939,7 +49939,7 @@ javascript.javascriptGenerator.forBlock['Script_warningEntityMessage'] = (block,
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const isServerScript = generator.getVariableName(block.getFieldValue('isServerScript'));
 
-return `Script.warningEntityMessage.connect(_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
+return `Script.warningEntityMessage.connect((_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
   ${message} = _message; 
   ${fileName} = _fileName; 
   ${lineNumber} = _lineNumber; 
@@ -49983,7 +49983,7 @@ javascript.javascriptGenerator.forBlock['Script_infoEntityMessage'] = (block, ge
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
     const isServerScript = generator.getVariableName(block.getFieldValue('isServerScript'));
 
-return `Script.infoEntityMessage.connect(_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
+return `Script.infoEntityMessage.connect((_message,_fileName,_lineNumber,_entityID,_isServerScript) => { 
   ${message} = _message; 
   ${fileName} = _fileName; 
   ${lineNumber} = _lineNumber; 
@@ -50070,7 +50070,7 @@ javascript.javascriptGenerator.forBlock['Entities_unload'] = (block, generator) 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Entities.unload.connect(_entityID) => { 
+return `Entities.unload.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -51114,7 +51114,7 @@ javascript.javascriptGenerator.forBlock['Script_update'] = (block, generator) =>
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const deltaTime = generator.getVariableName(block.getFieldValue('deltaTime'));
 
-return `Script.update.connect(_deltaTime) => { 
+return `Script.update.connect((_deltaTime) => { 
   ${deltaTime} = _deltaTime;
 ${innerCode}
 });\n`;};
@@ -51162,7 +51162,7 @@ javascript.javascriptGenerator.forBlock['Script_printedMessage'] = (block, gener
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `Script.printedMessage.connect(_message,_scriptName) => { 
+return `Script.printedMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -51191,7 +51191,7 @@ javascript.javascriptGenerator.forBlock['Script_errorMessage'] = (block, generat
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `Script.errorMessage.connect(_message,_scriptName) => { 
+return `Script.errorMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -51220,7 +51220,7 @@ javascript.javascriptGenerator.forBlock['Script_warningMessage'] = (block, gener
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `Script.warningMessage.connect(_message,_scriptName) => { 
+return `Script.warningMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -51249,7 +51249,7 @@ javascript.javascriptGenerator.forBlock['Script_infoMessage'] = (block, generato
     const message = generator.getVariableName(block.getFieldValue('message'));
     const scriptName = generator.getVariableName(block.getFieldValue('scriptName'));
 
-return `Script.infoMessage.connect(_message,_scriptName) => { 
+return `Script.infoMessage.connect((_message,_scriptName) => { 
   ${message} = _message; 
   ${scriptName} = _scriptName;
 ${innerCode}
@@ -51314,7 +51314,7 @@ javascript.javascriptGenerator.forBlock['Script_entityScriptPreloadFinished'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const entityID = generator.getVariableName(block.getFieldValue('entityID'));
 
-return `Script.entityScriptPreloadFinished.connect(_entityID) => { 
+return `Script.entityScriptPreloadFinished.connect((_entityID) => { 
   ${entityID} = _entityID;
 ${innerCode}
 });\n`;};
@@ -51338,7 +51338,7 @@ javascript.javascriptGenerator.forBlock['Script_unhandledException'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const exception = generator.getVariableName(block.getFieldValue('exception'));
 
-return `Script.unhandledException.connect(_exception) => { 
+return `Script.unhandledException.connect((_exception) => { 
   ${exception} = _exception;
 ${innerCode}
 });\n`;};
@@ -52552,7 +52552,7 @@ javascript.javascriptGenerator.forBlock['Users_canKickChanged'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const canKick = generator.getVariableName(block.getFieldValue('canKick'));
 
-return `Users.canKickChanged.connect(_canKick) => { 
+return `Users.canKickChanged.connect((_canKick) => { 
   ${canKick} = _canKick;
 ${innerCode}
 });\n`;};
@@ -52576,7 +52576,7 @@ javascript.javascriptGenerator.forBlock['Users_ignoreRadiusEnabledChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isEnabled = generator.getVariableName(block.getFieldValue('isEnabled'));
 
-return `Users.ignoreRadiusEnabledChanged.connect(_isEnabled) => { 
+return `Users.ignoreRadiusEnabledChanged.connect((_isEnabled) => { 
   ${isEnabled} = _isEnabled;
 ${innerCode}
 });\n`;};
@@ -52632,7 +52632,7 @@ javascript.javascriptGenerator.forBlock['Users_usernameFromIDReply'] = (block, g
     const machineFingerprint = generator.getVariableName(block.getFieldValue('machineFingerprint'));
     const isAdmin = generator.getVariableName(block.getFieldValue('isAdmin'));
 
-return `Users.usernameFromIDReply.connect(_sessionID,_userName,_machineFingerprint,_isAdmin) => { 
+return `Users.usernameFromIDReply.connect((_sessionID,_userName,_machineFingerprint,_isAdmin) => { 
   ${sessionID} = _sessionID; 
   ${userName} = _userName; 
   ${machineFingerprint} = _machineFingerprint; 
@@ -52659,7 +52659,7 @@ javascript.javascriptGenerator.forBlock['Users_avatarDisconnected'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sessionID = generator.getVariableName(block.getFieldValue('sessionID'));
 
-return `Users.avatarDisconnected.connect(_sessionID) => { 
+return `Users.avatarDisconnected.connect((_sessionID) => { 
   ${sessionID} = _sessionID;
 ${innerCode}
 });\n`;};
@@ -53884,7 +53884,7 @@ javascript.javascriptGenerator.forBlock['WebSocketServer_newConnection'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const webSocket = generator.getVariableName(block.getFieldValue('webSocket'));
 
-return `WebSocketServer.newConnection.connect(_webSocket) => { 
+return `WebSocketServer.newConnection.connect((_webSocket) => { 
   ${webSocket} = _webSocket;
 ${innerCode}
 });\n`;};
@@ -54975,7 +54975,7 @@ javascript.javascriptGenerator.forBlock['ResourceRequestObserver_resourceRequest
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const request = generator.getVariableName(block.getFieldValue('request'));
 
-return `ResourceRequestObserver.resourceRequestEvent.connect(_request) => { 
+return `ResourceRequestObserver.resourceRequestEvent.connect((_request) => { 
   ${request} = _request;
 ${innerCode}
 });\n`;};
@@ -55520,7 +55520,7 @@ javascript.javascriptGenerator.forBlock['Camera_modeUpdated'] = (block, generato
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const newMode = generator.getVariableName(block.getFieldValue('newMode'));
 
-return `Camera.modeUpdated.connect(_newMode) => { 
+return `Camera.modeUpdated.connect((_newMode) => { 
   ${newMode} = _newMode;
 ${innerCode}
 });\n`;};
@@ -55544,7 +55544,7 @@ javascript.javascriptGenerator.forBlock['Camera_captureMouseChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const newCaptureMouse = generator.getVariableName(block.getFieldValue('newCaptureMouse'));
 
-return `Camera.captureMouseChanged.connect(_newCaptureMouse) => { 
+return `Camera.captureMouseChanged.connect((_newCaptureMouse) => { 
   ${newCaptureMouse} = _newCaptureMouse;
 ${innerCode}
 });\n`;};
@@ -55568,7 +55568,7 @@ javascript.javascriptGenerator.forBlock['Camera_mouseLookChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const mouseLookChanged = generator.getVariableName(block.getFieldValue('mouseLookChanged'));
 
-return `Camera.mouseLookChanged.connect(_mouseLookChanged) => { 
+return `Camera.mouseLookChanged.connect((_mouseLookChanged) => { 
   ${mouseLookChanged} = _mouseLookChanged;
 ${innerCode}
 });\n`;};
@@ -56067,7 +56067,7 @@ javascript.javascriptGenerator.forBlock['OverlayWebWindow_webEventReceived'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `OverlayWebWindow.webEventReceived.connect(_message) => { 
+return `OverlayWebWindow.webEventReceived.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -56651,7 +56651,7 @@ javascript.javascriptGenerator.forBlock['OverlayWindow_moved'] = (block, generat
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const position = generator.getVariableName(block.getFieldValue('position'));
 
-return `OverlayWindow.moved.connect(_position) => { 
+return `OverlayWindow.moved.connect((_position) => { 
   ${position} = _position;
 ${innerCode}
 });\n`;};
@@ -56675,7 +56675,7 @@ javascript.javascriptGenerator.forBlock['OverlayWindow_resized'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const size = generator.getVariableName(block.getFieldValue('size'));
 
-return `OverlayWindow.resized.connect(_size) => { 
+return `OverlayWindow.resized.connect((_size) => { 
   ${size} = _size;
 ${innerCode}
 });\n`;};
@@ -56719,7 +56719,7 @@ javascript.javascriptGenerator.forBlock['OverlayWindow_fromQml'] = (block, gener
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `OverlayWindow.fromQml.connect(_message) => { 
+return `OverlayWindow.fromQml.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -56743,7 +56743,7 @@ javascript.javascriptGenerator.forBlock['OverlayWindow_webEventReceived'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `OverlayWindow.webEventReceived.connect(_message) => { 
+return `OverlayWindow.webEventReceived.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -57475,7 +57475,7 @@ javascript.javascriptGenerator.forBlock['TabletProxy#webEventReceived'] = (block
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `TabletProxy#webEventReceived.connect(_message) => { 
+return `TabletProxy#webEventReceived.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -57499,7 +57499,7 @@ javascript.javascriptGenerator.forBlock['TabletProxy#fromQml'] = (block, generat
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const message = generator.getVariableName(block.getFieldValue('message'));
 
-return `TabletProxy#fromQml.connect(_message) => { 
+return `TabletProxy#fromQml.connect((_message) => { 
   ${message} = _message;
 ${innerCode}
 });\n`;};
@@ -57527,7 +57527,7 @@ javascript.javascriptGenerator.forBlock['TabletProxy#screenChanged'] = (block, g
     const type = generator.getVariableName(block.getFieldValue('type'));
     const url = generator.getVariableName(block.getFieldValue('url'));
 
-return `TabletProxy#screenChanged.connect(_type,_url) => { 
+return `TabletProxy#screenChanged.connect((_type,_url) => { 
   ${type} = _type; 
   ${url} = _url;
 ${innerCode}
@@ -57848,7 +57848,7 @@ javascript.javascriptGenerator.forBlock['Toolbars_toolbarVisibleChanged'] = (blo
     const isVisible = generator.getVariableName(block.getFieldValue('isVisible'));
     const toolbarName = generator.getVariableName(block.getFieldValue('toolbarName'));
 
-return `Toolbars.toolbarVisibleChanged.connect(_isVisible,_toolbarName) => { 
+return `Toolbars.toolbarVisibleChanged.connect((_isVisible,_toolbarName) => { 
   ${isVisible} = _isVisible; 
   ${toolbarName} = _toolbarName;
 ${innerCode}
@@ -57957,7 +57957,7 @@ javascript.javascriptGenerator.forBlock['AvatarManager_avatarAddedEvent'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sessionUUID = generator.getVariableName(block.getFieldValue('sessionUUID'));
 
-return `AvatarManager.avatarAddedEvent.connect(_sessionUUID) => { 
+return `AvatarManager.avatarAddedEvent.connect((_sessionUUID) => { 
   ${sessionUUID} = _sessionUUID;
 ${innerCode}
 });\n`;};
@@ -57981,7 +57981,7 @@ javascript.javascriptGenerator.forBlock['AvatarManager_avatarRemovedEvent'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const sessionUUID = generator.getVariableName(block.getFieldValue('sessionUUID'));
 
-return `AvatarManager.avatarRemovedEvent.connect(_sessionUUID) => { 
+return `AvatarManager.avatarRemovedEvent.connect((_sessionUUID) => { 
   ${sessionUUID} = _sessionUUID;
 ${innerCode}
 });\n`;};
@@ -58009,7 +58009,7 @@ javascript.javascriptGenerator.forBlock['AvatarManager_avatarSessionChangedEvent
     const newSessionUUID = generator.getVariableName(block.getFieldValue('newSessionUUID'));
     const oldSessionUUID = generator.getVariableName(block.getFieldValue('oldSessionUUID'));
 
-return `AvatarManager.avatarSessionChangedEvent.connect(_newSessionUUID,_oldSessionUUID) => { 
+return `AvatarManager.avatarSessionChangedEvent.connect((_newSessionUUID,_oldSessionUUID) => { 
   ${newSessionUUID} = _newSessionUUID; 
   ${oldSessionUUID} = _oldSessionUUID;
 ${innerCode}
@@ -59000,7 +59000,7 @@ javascript.javascriptGenerator.forBlock['MyAvatar_lookAtSnappingChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const enabled = generator.getVariableName(block.getFieldValue('enabled'));
 
-return `MyAvatar.lookAtSnappingChanged.connect(_enabled) => { 
+return `MyAvatar.lookAtSnappingChanged.connect((_enabled) => { 
   ${enabled} = _enabled;
 ${innerCode}
 });\n`;};
@@ -59188,7 +59188,7 @@ javascript.javascriptGenerator.forBlock['Account_disconnected'] = (block, genera
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const reason = generator.getVariableName(block.getFieldValue('reason'));
 
-return `Account.disconnected.connect(_reason) => { 
+return `Account.disconnected.connect((_reason) => { 
   ${reason} = _reason;
 ${innerCode}
 });\n`;};
@@ -59212,7 +59212,7 @@ javascript.javascriptGenerator.forBlock['Account_myUsernameChanged'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const username = generator.getVariableName(block.getFieldValue('username'));
 
-return `Account.myUsernameChanged.connect(_username) => { 
+return `Account.myUsernameChanged.connect((_username) => { 
   ${username} = _username;
 ${innerCode}
 });\n`;};
@@ -59236,7 +59236,7 @@ javascript.javascriptGenerator.forBlock['Account_downloadInfoChanged'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const downloadInfo = generator.getVariableName(block.getFieldValue('downloadInfo'));
 
-return `Account.downloadInfoChanged.connect(_downloadInfo) => { 
+return `Account.downloadInfoChanged.connect((_downloadInfo) => { 
   ${downloadInfo} = _downloadInfo;
 ${innerCode}
 });\n`;};
@@ -59260,7 +59260,7 @@ javascript.javascriptGenerator.forBlock['Account_findableByChanged'] = (block, g
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const findableBy = generator.getVariableName(block.getFieldValue('findableBy'));
 
-return `Account.findableByChanged.connect(_findableBy) => { 
+return `Account.findableByChanged.connect((_findableBy) => { 
   ${findableBy} = _findableBy;
 ${innerCode}
 });\n`;};
@@ -59284,7 +59284,7 @@ javascript.javascriptGenerator.forBlock['Account_loggedInChanged'] = (block, gen
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const loggedIn = generator.getVariableName(block.getFieldValue('loggedIn'));
 
-return `Account.loggedInChanged.connect(_loggedIn) => { 
+return `Account.loggedInChanged.connect((_loggedIn) => { 
   ${loggedIn} = _loggedIn;
 ${innerCode}
 });\n`;};
@@ -59432,7 +59432,7 @@ javascript.javascriptGenerator.forBlock['GlobalServices_disconnected'] = (block,
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const reason = generator.getVariableName(block.getFieldValue('reason'));
 
-return `GlobalServices.disconnected.connect(_reason) => { 
+return `GlobalServices.disconnected.connect((_reason) => { 
   ${reason} = _reason;
 ${innerCode}
 });\n`;};
@@ -59456,7 +59456,7 @@ javascript.javascriptGenerator.forBlock['GlobalServices_myUsernameChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const username = generator.getVariableName(block.getFieldValue('username'));
 
-return `GlobalServices.myUsernameChanged.connect(_username) => { 
+return `GlobalServices.myUsernameChanged.connect((_username) => { 
   ${username} = _username;
 ${innerCode}
 });\n`;};
@@ -59480,7 +59480,7 @@ javascript.javascriptGenerator.forBlock['GlobalServices_downloadInfoChanged'] = 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const downloadInfo = generator.getVariableName(block.getFieldValue('downloadInfo'));
 
-return `GlobalServices.downloadInfoChanged.connect(_downloadInfo) => { 
+return `GlobalServices.downloadInfoChanged.connect((_downloadInfo) => { 
   ${downloadInfo} = _downloadInfo;
 ${innerCode}
 });\n`;};
@@ -59504,7 +59504,7 @@ javascript.javascriptGenerator.forBlock['GlobalServices_findableByChanged'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const findableBy = generator.getVariableName(block.getFieldValue('findableBy'));
 
-return `GlobalServices.findableByChanged.connect(_findableBy) => { 
+return `GlobalServices.findableByChanged.connect((_findableBy) => { 
   ${findableBy} = _findableBy;
 ${innerCode}
 });\n`;};
@@ -59528,7 +59528,7 @@ javascript.javascriptGenerator.forBlock['GlobalServices_loggedInChanged'] = (blo
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const loggedIn = generator.getVariableName(block.getFieldValue('loggedIn'));
 
-return `GlobalServices.loggedInChanged.connect(_loggedIn) => { 
+return `GlobalServices.loggedInChanged.connect((_loggedIn) => { 
   ${loggedIn} = _loggedIn;
 ${innerCode}
 });\n`;};
@@ -60220,7 +60220,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_possibleDomainChangeRequ
     const domainURL = generator.getVariableName(block.getFieldValue('domainURL'));
     const domainID = generator.getVariableName(block.getFieldValue('domainID'));
 
-return `AddressManager.possibleDomainChangeRequired.connect(_domainURL,_domainID) => { 
+return `AddressManager.possibleDomainChangeRequired.connect((_domainURL,_domainID) => { 
   ${domainURL} = _domainURL; 
   ${domainID} = _domainID;
 ${innerCode}
@@ -60257,7 +60257,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_locationChangeRequired']
     const orientation = generator.getVariableName(block.getFieldValue('orientation'));
     const shouldFaceLocation = generator.getVariableName(block.getFieldValue('shouldFaceLocation'));
 
-return `AddressManager.locationChangeRequired.connect(_position,_hasOrientationChange,_orientation,_shouldFaceLocation) => { 
+return `AddressManager.locationChangeRequired.connect((_position,_hasOrientationChange,_orientation,_shouldFaceLocation) => { 
   ${position} = _position; 
   ${hasOrientationChange} = _hasOrientationChange; 
   ${orientation} = _orientation; 
@@ -60288,7 +60288,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_possibleDomainChangeRequ
     const iceServerHostName = generator.getVariableName(block.getFieldValue('iceServerHostName'));
     const domainID = generator.getVariableName(block.getFieldValue('domainID'));
 
-return `AddressManager.possibleDomainChangeRequiredViaICEForID.connect(_iceServerHostName,_domainID) => { 
+return `AddressManager.possibleDomainChangeRequiredViaICEForID.connect((_iceServerHostName,_domainID) => { 
   ${iceServerHostName} = _iceServerHostName; 
   ${domainID} = _domainID;
 ${innerCode}
@@ -60313,7 +60313,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_pathChangeRequired'] = (
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const path = generator.getVariableName(block.getFieldValue('path'));
 
-return `AddressManager.pathChangeRequired.connect(_path) => { 
+return `AddressManager.pathChangeRequired.connect((_path) => { 
   ${path} = _path;
 ${innerCode}
 });\n`;};
@@ -60337,7 +60337,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_hostChanged'] = (block, 
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const hostname = generator.getVariableName(block.getFieldValue('hostname'));
 
-return `AddressManager.hostChanged.connect(_hostname) => { 
+return `AddressManager.hostChanged.connect((_hostname) => { 
   ${hostname} = _hostname;
 ${innerCode}
 });\n`;};
@@ -60361,7 +60361,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_goBackPossible'] = (bloc
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isPossible = generator.getVariableName(block.getFieldValue('isPossible'));
 
-return `AddressManager.goBackPossible.connect(_isPossible) => { 
+return `AddressManager.goBackPossible.connect((_isPossible) => { 
   ${isPossible} = _isPossible;
 ${innerCode}
 });\n`;};
@@ -60385,7 +60385,7 @@ javascript.javascriptGenerator.forBlock['AddressManager_goForwardPossible'] = (b
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const isPossible = generator.getVariableName(block.getFieldValue('isPossible'));
 
-return `AddressManager.goForwardPossible.connect(_isPossible) => { 
+return `AddressManager.goForwardPossible.connect((_isPossible) => { 
   ${isPossible} = _isPossible;
 ${innerCode}
 });\n`;};
@@ -60801,7 +60801,7 @@ javascript.javascriptGenerator.forBlock['OverlayWebWindow_moved'] = (block, gene
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const position = generator.getVariableName(block.getFieldValue('position'));
 
-return `OverlayWebWindow.moved.connect(_position) => { 
+return `OverlayWebWindow.moved.connect((_position) => { 
   ${position} = _position;
 ${innerCode}
 });\n`;};
@@ -60825,7 +60825,7 @@ javascript.javascriptGenerator.forBlock['OverlayWebWindow_resized'] = (block, ge
     const innerCode = generator.statementToCode(block, 'VALUE_INPUT');
     const size = generator.getVariableName(block.getFieldValue('size'));
 
-return `OverlayWebWindow.resized.connect(_size) => { 
+return `OverlayWebWindow.resized.connect((_size) => { 
   ${size} = _size;
 ${innerCode}
 });\n`;};
