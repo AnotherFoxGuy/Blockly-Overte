@@ -57,17 +57,17 @@ blocklyEditor.updateCode = (event) => {
 }
 
 blocklyEditor.onChangeHandler = (event) => {
-    const json = event.toJson();
-    if (blocklyEditor.lastEdit == json || event.isUiEvent)
+    if (event.isUiEvent)
         return;
 
-
+    const json = event.toJson();
     const changeEvent = {
         id: editorId,
         app: "blocklyEditor",
         method: "blocklyEditor.onChangeHandler",
         event: json,
     };
+
     EventBridge.emitWebEvent(JSON.stringify(changeEvent));
     console.log("Send change: " + JSON.stringify(changeEvent));
     blocklyEditor.lastEdit = json;
@@ -91,15 +91,17 @@ blocklyEditor.onScriptEventReceived = (message) => {
         case "blocklyEditor.updateWorkspace":
 
             console.log(`test ${editorId} ms ${message.id}`);
-            if (message.id == null || message.id == editorId)
+            if (message.id == null || message.id == editorId || blocklyEditor.lastEdit == message.event)
                 return;
 
             Blockly.Events.disable();
             let updateEvent = Blockly.Events.fromJson(message.event, blocklyEditor.workspace);
             updateEvent.run(true);
+            blocklyEditor.updateCode(updateEvent);
             Blockly.Events.enable();
-
             console.log("Workspace updated: " + message.event);
+            blocklyEditor.lastEdit = message.event;
+
             break;
         case "blocklyEditor.loadWorkspace":
             if (message.data == null)
