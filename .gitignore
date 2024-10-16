@@ -487,3 +487,6 @@ tmp/*
 hifiJSDoc.json
 deploy/*
 !deploy/index.html
+!deploy/test.html
+!deploy/editorEntity.js
+!deploy/web.js

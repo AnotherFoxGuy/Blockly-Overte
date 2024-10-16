@@ -34,7 +34,7 @@ return `{{jsfunction}}.connect(() => {
 ${innerCode}
 });\n`;
 {{- else -}}
-return `{{jsfunction}}.connect({{- for p in parameters -}} _{{p.name}}{{- com -}}{{- end -}}) => {
+return `{{jsfunction}}.connect(({{- for p in parameters -}} _{{p.name}}{{- com -}}{{- end -}}) => {
 {{- for p in parameters }} 
   ${%%{{}%%}{{p.name}}{%%{}}%%} = _{{p.name}};
 {{- end }}
