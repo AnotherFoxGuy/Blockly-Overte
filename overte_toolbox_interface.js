@@ -3,11 +3,6 @@ var toobox_def = {
     "kind": "categoryToolbox",
     "contents": [
         {
-            'kind': 'search',
-            'name': 'Search',
-            'contents': [],
-        },
-        {
             "kind": "CATEGORY",
             "contents": [
                 {
